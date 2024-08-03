@@ -1,0 +1,44 @@
+<style>
+    .reviews {
+        background-image: url("{{ 'wave_bg.png' | file_img_url: "master" }}");
+        background-size: contain;
+        background-position: top;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<div class="reviews w-full pt-[150px] h-[500px] relative top-[-150px] z-[1]">
+    <div class="relative [&>img]:h-[40px]">
+        <img class="
+        absolute left-[100px] hidden md:block" src="
+        {{ 'Star_2.png' | file_img_url: "master" }}
+        " alt="
+        Star"/>
+        <img
+        class="absolute left-[175px] top-[-80px] hidden md:block"
+        src="{{ 'Star_1.png' | file_img_url: "master" }}"
+        alt="Star"
+        "/>
+        <img class="top-[10px] left-[250px]
+        absolute hidden md:block" src="
+        {{ 'Star_3.png' | file_img_url: "master" }}
+        " alt="
+        Star"/>
+
+        <img class="
+        absolute right-[150px] top-[-50px] hidden md:block" src="
+        {{ 'Star_2.png' | file_img_url: "master" }}
+        " alt="
+        Star"/>
+        <img
+        class="absolute  hidden md:block top-[10px] right-[250px]"
+        src="{{ 'Star_1.png' | file_img_url: "master" }}"
+        alt="Star"
+        "/>
+        <img class="right-[50px] top-[-80px]
+        absolute hidden md:block" src="
+        {{ 'Star_3.png' | file_img_url: "master" }}
+        " alt="
+        Star"/>
+    </div>
+</div>

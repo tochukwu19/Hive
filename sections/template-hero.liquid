@@ -1,0 +1,87 @@
+<style>
+    .hero-container{
+        height: calc(100vh - 70px);
+    }
+  .hero {
+    background-image: url("{{ 'hero-image.png' | file_img_url: "master" }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: translate(0%,5%);
+  }
+
+  .marquee-text {
+    font-family: 'Comicy'
+    , sans-serif;
+    font-size: 18px;
+    fill: black;
+  }
+
+  .shop_now {
+    box-shadow: 2px 2px 0 0 #000000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,150%);
+    width: fit-content;
+  }
+</style>
+
+<div class="w-[90%] mx-auto hero-container">
+  <div class="hero h-[80vh] relative overflow-x-clip w-full border border-solid border-[#000] rounded-[20px]">
+    <div class="w-[120%] left-[-10%] top-[25%] absolute overflow-hidden">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 1000 200"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="curve" d="M0,180 C250,10 750,190 1000,20" />
+        </defs>
+
+        <path
+          id="curve-background"
+          d="M0,180 C250,10 750,190 1000,20"
+          fill="none"
+          stroke="#FFFBEB"
+          stroke-width="40" />
+
+        <use
+          href="#curve"
+          stroke="transparent"
+          strokeWidth="0"
+          fill="none" />
+
+        <text class="marquee-text" dy="5">
+          <textPath href="#curve" startOffset="100%">
+            BOREM IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM
+            <animate
+              attributeName="startOffset"
+              from="100%"
+              to="-100%"
+              dur="30s"
+              repeatCount="indefinite" />
+          </textPath>
+        </text>
+
+        <text class="marquee-text" dy="5">
+          <textPath href="#curve" startOffset="100%">
+            IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM DOLOR
+            <animate
+              attributeName="startOffset"
+              from="100%"
+              to="-100%"
+              dur="30s"
+              begin="15s"
+              repeatCount="indefinite" />
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <a href="#" class="block shop_now rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
+      Shop Now
+    </a>
+  </div>
+</div>

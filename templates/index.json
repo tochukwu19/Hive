@@ -1,0 +1,42 @@
+{
+    "name": "Template Index",
+    "sections": {
+        "hero": {
+            "type": "template-hero",
+            "settings": {
+                "": ""
+            }
+        },
+        "benefit": {
+            "type": "template-benefit",
+            "settings": {
+                "": ""
+            }
+        },
+        "flavors": {
+            "type": "template-flavors",
+            "settings": {
+                "": ""
+            }
+        },
+        "about": {
+            "type": "template-about",
+            "settings": {
+                "": ""
+            }
+        },
+        "review": {
+            "type": "template-review",
+            "settings": {
+                "": ""
+            }
+        }
+    },
+    "order": [
+        "hero",
+        "benefit",
+        "flavors",
+        "about",
+        "review"
+    ]
+}

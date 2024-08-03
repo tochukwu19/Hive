@@ -1,0 +1,92 @@
+<style>
+  .flavors {
+    background-image: url("{{ 'Bg-down.png' | file_img_url: "master" }}")
+    , url("{{ 'Bg-up.png' | file_img_url: "master" }}");
+    background-size: contain
+    , contain;
+    background-position: top
+    , bottom;
+    background-repeat: no-repeat;
+  }
+
+  .shop_now_new {
+    box-shadow: 2px 2px 0 0 #000000;
+    width: fit-content;
+  }
+
+  .products {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+      @media only screen and (max-width: 500px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+</style>
+
+<div class="flavors w-full md:h-[160vh] h-auto py-[150px] bg-[#C3E2FE] flex justify-center items-center">
+  <div class="flavors-container w-[90%] h-[70%] relative flex items-center [&>img]:z-0">
+    <img
+      class="absolute top-[120px]"
+      src="{{ 'Cloud.png' | file_img_url: "master" }}"
+      alt="Cloud" />
+    <img
+      class="absolute top-[100px] left-[250px] hidden md:block"
+      src="{{ 'Star_3.png' | file_img_url: "master" }}"
+      alt="Star" />
+    <img
+      class="absolute bottom-[200px] hidden md:block"
+      src="{{ 'Packet_1.png' | file_img_url: "master" }}"
+      alt="Packet" />
+
+    <img
+      class="absolute right-[0px] top-[150px]"
+      src="{{ 'Cloud_1.png' | file_img_url: "master" }}"
+      alt="Cloud" />
+    <img
+      class="absolute right-[280px] top-[200px] hidden md:block"
+      src="{{ 'Star_1.png' | file_img_url: "master" }}"
+      alt="Star"
+      "/>
+        <img class="
+      absolute
+      right-[250px]
+      top-[100px] hidden md:block" src="
+      {{ 'Packet_2.png' | file_img_url: "master" }}
+      " alt="
+      Packet"/>
+
+        <img class="
+      absolute
+      right-[0px]
+      bottom-[100px] hidden md:block" src="
+      {{ 'Packet.png' | file_img_url: "master" }}
+      " alt="
+      Packet"/>
+        <img class="
+      absolute
+      bottom-[100px] hidden md:block" src="
+      {{ 'Star_2.png' | file_img_url: "master" }}
+      " alt="
+      Star"/>
+
+    <div class="
+      mx-auto
+      z-[2]">
+    <h1 class="w-[90%] md:w-1/2 mx-auto text-center font-[600] capitalize text-3xl md:text-5xl text-center">Explore our different flavours available</h1>
+
+    <div class="w-full my-16 mx-auto md:mx-0  gap-8 flex md:flex-row flex-col justify-between items-center text-center">
+      {% for product in collections['all'].products limit: 3 %}
+        <div>
+          <img src="{{ product | img_url: 'large' }}" alt="{{ product.title }}" />
+          <a href="{{ product.url }}" class="uppercase text-xl text-black font-bold hover:text-[#F79219]">{{ product.title }}</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <a href="#" class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
+      Shop Now
+    </a>
+  </div>
+</div>

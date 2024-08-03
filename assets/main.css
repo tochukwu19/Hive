@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Helvetica-now';
+    src: url('{{ "HelveticaNowDisplay-Regular.woff2" | file_url}}'),
+    url("https://cdn.shopify.com/s/files/1/0606/4750/6051/files/HelveticaNowDisplay-Regular.woff2?v=1722705286") format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica-now';
+    src: url('{{ "HelveticaNowDisplay-Bold.woff2" | file_url}}'),
+    url("https://cdn.shopify.com/s/files/1/0606/4750/6051/files/HelveticaNowDisplay-Bold.woff2?v=1722705286") format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Clash Display';
+    src: url('{{ "ClashDisplay-Variable.woff2" | file_url }}'),
+    url("https://cdn.shopify.com/s/files/1/0606/4750/6051/files/ClashDisplay-Variable.woff2?v=1722328147") format('woff2');
+    font-weight: 100 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Comicy';
+    src: url('{{ "Comicy.woff2" | file_url }}'),
+    url("https://cdn.shopify.com/s/files/1/0606/4750/6051/files/Comicy.woff2?v=1722328147") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body{
+    font-family: 'Clash Display', sans-serif;
+    background-color: #FFFBEB;
+}
+
+.logo{
+    font-family: 'Comicy', sans-serif;
+}
+
+.helvetica{
+    font-family: 'Helvetica-now', sans-serif;
+    font-weight: 700;
+}

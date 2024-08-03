@@ -1,0 +1,30 @@
+<style>
+
+</style>
+
+<div class="w-full h-[70px]">
+  <div class="w-[90%] h-[inherit] mx-auto flex justify-between items-center [&>div>a]:font-[500]">
+    <div class="hidden md:flex justify-center items-center gap-4">
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <a href="#">About</a>
+    </div>
+
+    <div class="md:hidden">
+      <a href="#" class="logo flex flex-col items-center justify-center text-[#78350F]">
+        {% render "hamburger" %}
+      </a>
+    </div>
+
+    <div>
+      <a href="#" class="logo flex flex-col items-center justify-center text-[#78350F]">
+        <p>SNACK</p>
+        <P>SAVY</P>
+      </a>
+    </div>
+
+    <div class="flex justify-between items-center gap-4 [&>a>svg]:h-[40px]">
+      <a href="#" class="hidden md:block">{% render "search" %}</a>
+      <a href="#">{% render "cart" %}</a>
+    </div>
+  </div>
+</div>

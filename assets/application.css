@@ -750,6 +750,18 @@ video {
   margin-bottom: 2rem;
 }
 
+.mt-96 {
+  margin-top: 24rem;
+}
+
+.mt-48 {
+  margin-top: 12rem;
+}
+
+.mt-52 {
+  margin-top: 13rem;
+}
+
 .block {
   display: block;
 }
@@ -992,6 +1004,10 @@ video {
   padding-top: 150px;
 }
 
+.pt-\[300px\] {
+  padding-top: 300px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1094,6 +1110,10 @@ video {
 
   .md\:mt-0 {
     margin-top: 0px;
+  }
+
+  .md\:mt-52 {
+    margin-top: 13rem;
   }
 
   .md\:block {

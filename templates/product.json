@@ -72,6 +72,22 @@
             "button_color": "#66ffe6"
           }
         },
+        "cell_kbdBWP": {
+          "type": "cell",
+          "settings": {
+            "row_index": 0,
+            "button_text": "Save",
+            "button_color": "#000000"
+          }
+        },
+        "cell_ei47pH": {
+          "type": "cell",
+          "settings": {
+            "row_index": 0,
+            "button_text": "Save",
+            "button_color": "#000000"
+          }
+        },
         "cell_YpRpQq": {
           "type": "cell",
           "settings": {
@@ -115,6 +131,8 @@
         "row_nzrmUR",
         "row_WbyKDP",
         "cell",
+        "cell_kbdBWP",
+        "cell_ei47pH",
         "cell_YpRpQq",
         "cell_MCqEiR",
         "cell_9ffAc6",

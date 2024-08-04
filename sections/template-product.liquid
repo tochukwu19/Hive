@@ -115,8 +115,8 @@
           value="{{ selected_variant.id }}">
 
         <div class="w-[90%] mx-auto flex flex-col md:flex-row justify-between items-start">
-          <div class="w-full md:w-[50%] flex justify-between items-start">
-            <div>
+          <div class="w-full md:w-[50%] flex flex-col-reverse md:flex-row justify-between items-start">
+            <div class="flex flex-row md:flex-col items-center justify-between gap-4 my-4">
               {% for variant in product.variants %}
                 <input
                   type="hidden"
@@ -243,9 +243,9 @@
     </defs>
   </svg>
 
-  <div class="benefit w-full py-48">
-    <div class="h-[inherit] mx-auto w-[90%] flex justify-between items-center">
-      <div class="h-[500px] flex flex-col justify-between">
+  <div class="benefit w-full md:py-48 pb-28 pt-[400px]">
+    <div class="h-[inherit] mx-auto w-[90%] flex flex-col md:flex-row justify-between items-center">
+      <div class="h-[500px] hidden md:flex flex-col justify-between">
         <div class="text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-1" %}</div>
           <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -264,14 +264,28 @@
         src="{{ 'image_10_1.png' |  file_img_url: "master" }}"
         alt="cereal">
 
-      <div class="h-[500px] flex flex-col justify-between">
-        <div class="text-center w-[200px] flex flex-col justify-center items-center">
+        <div class="mb-4 md:mb-0 md:h-[500px] flex flex-col gap-2 md:gap-0  md:justify-between md:hidden">
+            <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
+              <div class="mb-4">{% render "icon-star-1" %}</div>
+              <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <em class="not-italic">Benefit 1</em>
+            </div>
+    
+            <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
+              <div class="mb-4">{% render "icon-star-2" %}</div>
+              <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <em class="not-italic">Benefit 1</em>
+            </div>
+          </div>
+
+      <div class="md:h-[500px] flex flex-col gap-2 md:gap-0 md:justify-between">
+        <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-3" %}</div>
           <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <em class="not-italic">Benefit 1</em>
         </div>
 
-        <div class="relative right-[100px] text-center w-[200px] flex flex-col justify-center items-center">
+        <div class="mb-8 md:mb-0 relative md:right-[100px] text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-1" %}</div>
           <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <em class="not-italic">Benefit 1</em>
@@ -282,7 +296,7 @@
 </div>
 
 <div class="chart w-full md:h-[160vh] h-auto pt-[100px] bg-[#C3E2FE] flex justify-center items-center">
-  <div class="chart-container w-[90%] h-[70%] relative flex flex-col items-center [&>img]:z-0">
+  <div class="chart-container w-[90%] h-[70%] mb-36 md:mb-0 relative flex flex-col items-center [&>img]:z-0">
     {% comment %} <img
                   class="absolute top-[120px]"
                   src="{{ 'Cloud.png' | file_img_url: "master" }}"

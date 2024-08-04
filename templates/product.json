@@ -1,33 +1,132 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
-    "sections": {
-        "product": {
-            "type": "template-product",
-            "blocks": {
-                "column": {
-                    "type": "column"
-                },
-                "row": {
-                    "type": "row"
-                },
-                "cell": {
-                    "type": "cell"
-                }
-            },
-            "block_order": [
-                "column",
-                "column",
-                "column",
-                "column",
-                "row",
-                "row",
-                "row",
-                "row",
-                "cell",
-                "cell"
-            ]
+  "sections": {
+    "product": {
+      "type": "template-product",
+      "blocks": {
+        "column": {
+          "type": "column",
+          "settings": {
+            "column_title": "Snack",
+            "column_image": "shopify:\/\/shop_images\/image_10_1.png"
+          }
+        },
+        "column_bhbkck": {
+          "type": "column",
+          "settings": {
+            "column_title": "Snack",
+            "column_image": "shopify:\/\/shop_images\/image_10_1.png"
+          }
+        },
+        "column_6R4kd7": {
+          "type": "column",
+          "settings": {
+            "column_title": "Snack",
+            "column_image": "shopify:\/\/shop_images\/image_10_1.png"
+          }
+        },
+        "column_K3yNDa": {
+          "type": "column",
+          "settings": {
+            "column_title": "Snack",
+            "column_image": "shopify:\/\/shop_images\/image_10_1.png"
+          }
+        },
+        "row": {
+          "type": "row",
+          "settings": {
+            "row_title": "Stack 1"
+          }
+        },
+        "row_LBFAnU": {
+          "type": "row",
+          "settings": {
+            "row_title": "Stack 2"
+          }
+        },
+        "row_nzrmUR": {
+          "type": "row",
+          "settings": {
+            "row_title": "Stack 3"
+          }
+        },
+        "row_WbyKDP": {
+          "type": "row",
+          "settings": {
+            "row_title": "Stack 4"
+          }
+        },
+        "cell": {
+          "type": "cell",
+          "settings": {
+            "row_index": 0,
+            "button_text": "Save",
+            "button_color": "#66ffe6"
+          }
+        },
+        "cell_YpRpQq": {
+          "type": "cell",
+          "settings": {
+            "row_index": 0,
+            "button_text": "Save",
+            "button_color": "#000000"
+          }
+        },
+        "cell_MCqEiR": {
+          "type": "cell",
+          "settings": {
+            "row_index": 1,
+            "button_text": "Save",
+            "button_color": "#ba4e4e"
+          }
+        },
+        "cell_9ffAc6": {
+          "type": "cell",
+          "settings": {
+            "row_index": 1,
+            "button_text": "Save",
+            "button_color": "#7761ff"
+          }
+        },
+        "cell_DL3MhJ": {
+          "type": "cell",
+          "settings": {
+            "row_index": 2,
+            "button_text": "",
+            "button_color": "#ffffff"
+          }
         }
-    },
-    "order": [
-        "product"
-    ]
+      },
+      "block_order": [
+        "column",
+        "column_bhbkck",
+        "column_6R4kd7",
+        "column_K3yNDa",
+        "row",
+        "row_LBFAnU",
+        "row_nzrmUR",
+        "row_WbyKDP",
+        "cell",
+        "cell_YpRpQq",
+        "cell_MCqEiR",
+        "cell_9ffAc6",
+        "cell_DL3MhJ"
+      ],
+      "settings": {
+        "table_title": "NUTRITIONAL CHART",
+        "header_title": "x"
+      }
+    }
+  },
+  "order": [
+    "product"
+  ]
 }

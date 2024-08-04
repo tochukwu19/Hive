@@ -1,0 +1,87 @@
+<style>
+  .footer-logo {
+    text-align: justify;
+    font-size: clamp(5.5vw, 15.5vw, 15vw);
+    font-weight: 700;
+  }
+
+  .footer-logo:after {
+    content: "SNACKSAVY";
+    display: inline-block;
+    width: 100%;
+  }
+</style>
+
+<div class="w-full mt-[200px] pt-[200px] relative">
+  <div class="w-[90%] mx-auto flex justify-between items-start flex-col md:flex-row bg-[#C3E2FE] rounded-[27px] pt-16 pb-8 md:pb-48 px-8 md:px-0 text-[#1F2937]">
+    <div class="w-full md:w-[30%] mx-auto mb-4 md:mb-0">
+      <h1 class="font-bold text-2xl helvetica">SIGN UP TO KEEP UPDATED</h1>
+      <p class="mb-4 mt-8 font-[500]">Join our email list for promotions, giveaways, and other updates from us!</p>
+      <div class="w-full relative">
+        {% form 'customer' %}
+
+          {{ form.errors | default_errors }}
+
+          {% if form.posted_successfully? %}
+            <p class="font-bold">Email Added</p>
+          {% else %}
+            <div class="flex justify-start items-center relative h-[80px]">
+              <input
+                type="email"
+                name="contact[email]"
+                placeholder="Enter your email"
+                class="w-full bg-white border border-solid border-[#1F2937] rounded-[30px] p-4 text-[#777] outline-none absolute" />
+
+              <button type="submit" class="absolute right-[3px] text-[#fff] bg-[#F79219] rounded-[30px] px-[20px] py-[14px]">Submit</button>
+            </div>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+    <nav class="flex w-full md:w-[50%] mx-auto gap-4 flex-col md:flex-row justify-between items-start [&>div>h1]:mb-4 flex-wrap">
+      {% for link in linklists['footer'].links %}
+        {% if link.links != blank %}
+          <div class="mb-8 md:mb-0">
+            <h1 class="font-bold helvetica uppercase text-lg">{{ link.title }}</h1>
+            <ul class="{% if link.title == "Social"%} grid grid-cols-2 {% endif %}">
+              {% for sublink in link.links %}
+                {% if sublink.title == "Instagram" or sublink.title == "Tiktok" or sublink.title == "Facebook" or sublink.title == "Linkedin" %}
+                  <a href="{{ sublink.url }}" class="hover:text-[#777] block my-2 font-[500]">
+                    {% case sublink.title %}
+                      {% when "Instagram" %}
+                        {% render "icon-insta" %}
+
+                      {% when "Tiktok" %}
+                        {% render "icon-tiktok" %}
+
+                      {% when "Facebook" %}
+                        {% render "icon-facebook" %}
+
+                      {% when "Linkedin" %}
+                        {% render "icon-linkedin" %}
+                        {% else %}
+                    {% endcase %}
+                  </a>
+
+                {% else %}
+                  <a href="{{ sublink.url }}" class="hover:text-[#777] block my-2 font-[500]">
+                    <li>{{ sublink.title }}</li>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  </div>
+
+  <img
+    class="absolute bottom-0 w-full"
+    src="{{ "footer-bg.png" |  file_img_url: 'master' }}"
+    alt="footer background" />
+</div>
+
+<div class="w-full h-auto bg-white">
+  <div class="footer-logo flex justify-center items-center gap-2 truncate"></div>
+</div>

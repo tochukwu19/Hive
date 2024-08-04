@@ -1,0 +1,655 @@
+{% assign selected_variant = product.selected_or_first_available_variant %}
+
+<style>
+  .product-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .product-image-variant {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  .clip {
+    clip-path: circle();
+    object-fit: cover;
+    box-shadow: 0 0 0 1px black;
+  }
+
+  .jdgm-star {
+    color: #F79219 !important;
+  }
+
+  .jdgm-prev-badge__text {
+    margin-left: 10px;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-image: url("{{ 'Cloud.png' | file_img_url: "master" }}");
+    background-size: 120px;
+    height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 120px;
+    padding: 0 20px;
+  }
+
+  .quantity-button {
+    cursor: pointer;
+  }
+
+  .quantity-input {
+    width: 50px;
+    text-align: center;
+    background-color: transparent;
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+    outline: none;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  /* benefit and chart/reviews section */
+  .benefit {
+    background-color: #fff;
+    clip-path: url('#wavyPath');
+  }
+
+  .chart {
+    background-image: url("{{ 'Bg-up_1.png' | file_img_url: "master" }}")
+    , url("{{ 'Bg-down_1.png' | file_img_url: "master" }}");
+    background-size: contain
+    , contain;
+    background-position: top
+    , bottom;
+    background-repeat: no-repeat;
+  }
+
+  .shop_now_new {
+    box-shadow: 2px 2px 0 0 #000000;
+    width: fit-content;
+  }
+</style>
+
+<div class="mt-8">
+  <div class="product w-full">
+    <div class="product--information sticky top-5 md:p-2 w-full">
+      {% form 'product'
+        , product
+        , id: 'product-form'
+        , novalidate: 'novalidate' %}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ selected_variant.id }}">
+
+        <div class="w-[90%] mx-auto flex flex-col md:flex-row justify-between items-start">
+          <div class="w-full md:w-[50%] flex justify-between items-start">
+            <div>
+              {% for variant in product.variants %}
+                <input
+                  type="hidden"
+                  name="options[{{ variant.name }}]"
+                  value="{{ variant.values.first }}">
+                <a
+                  href="{{ product.url }}?variant={{ variant.id }}"
+                  style="background-image: url({{ variant.image | img_url: large }})"
+                  class="block inset-0 overflow-hidden mb-2 w-fit h-[80px] w-[80px] border rounded-full border-solid border-black"></a>
+              {% endfor %}
+            </div>
+
+            <div class="block h-[500px] w-full overflow-hidden flex justify-start">
+              <div class="product-image h-full w-full mb-10 shadow-md" style="background-image: url({{ product.featured_image | img_url: "master"}})"></div>
+            </div>
+
+          </div>
+
+          <div class="w-full md:w-[40%] mb-8">
+            <h1 class="w-fit helvetica text-lg font-bold uppercase px-8 py-2 rounded-full bg-[#F79219] text-[#fff]">{{ product.title }}</h1>
+
+            <div class="my-4">
+              <!-- Start of Judge.me code -->
+              <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+                {{ product.metafields.judgeme.badge }}
+              </div>
+            <!-- End of Judge.me code -->
+
+            </div>
+
+            <h1 class="uppercase font-bold">product description</h1>
+
+            <p class="font-[500] text-[#6B7280] my-4">
+              {{ product.description | strip_html | truncatewords: 20 }}
+            </p>
+
+            {% comment %} <h2 class="text-lg font-bold uppercase">{{ product.price | money_with_currency }}</h2> {% endcomment %}
+
+            <div class="my-3">
+              {% unless product.has_only_default_variant %}
+                <variant-selector data-url="{{ product.url}}" data-section="{{ section.id }}">
+                  {% for option in product.options_with_values %}
+                    <label class="text-[#6B7280] block mt-4" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+
+                    <div class="my-4 relative">
+                      <div
+                        class="custom-select flex justify-between items-center w-full pr-3 font-bold outline-none appearance-none cursor-pointer noselect"
+                        role="button"
+                        id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                        data-option-name="{{ option.name | escape }}">
+                        <div class="selected-option" data-selected="{{ option.selected_value }}">
+                          {{ option.selected_value }}
+                        </div>
+                        <div class="dropdown-arrow !text-[#6B7280]">
+                          {% render "icon-down" %}
+                        </div>
+                      </div>
+                      <ul class="custom-options hidden w-full flex items-center gap-2 mt-4 z-10">
+                        {% for value in option.values %}
+                          <li
+                            class="option-item py-2 px-4 text-[#000] font-bold bg-[#fff] hover:bg-gray-200 rounded-full hover:text-black cursor-pointer border border-solid border-black"
+                            data-value="{{ value | escape }}"
+                            {% if option.selected_value == value %}
+                            data-selected="true"
+                            {% endif %}>
+                            {{ value }}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+
+                    <script type="application/json">
+                      {{ product.variants | json }}
+                    </script>
+                  {% endfor %}
+                </variant-selector>
+              {% endunless %}
+            </div>
+
+            <div class="my-3 flex items-center gap-4">
+              <div class="quantity-selector">
+                <button type="button" class="quantity-button decrease">
+                  {% render "icon-minus" %}
+                </button>
+                <input
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  class="quantity-input">
+                <button type="button" class="quantity-button increase">
+                  {% render "icon-plus" %}
+                </button>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <button
+                  type="submit"
+                  name="add"
+                  class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
+                  {% if selected_variant.available == false %}
+                  disabled{% endif %}>
+                  {% if selected_variant.available == false %}
+                    Sold out
+                  {% else %}
+                    Add to cart
+                    <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
+                  {% endif %}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endform %}
+    </div>
+  </div>
+
+  <svg width="0" height="0">
+    <defs>
+      <clipPath id="wavyPath" clipPathUnits="objectBoundingBox">
+        <path d="M0,0 C0.25,0.3 0.25,0 0.5,0.2 C0.75,0.4 0.75,0 1,0.2 L1,1 L0,1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <div class="benefit w-full py-48">
+    <div class="h-[inherit] mx-auto w-[90%] flex justify-between items-center">
+      <div class="h-[500px] flex flex-col justify-between">
+        <div class="text-center w-[200px] flex flex-col justify-center items-center">
+          <div class="mb-4">{% render "icon-star-1" %}</div>
+          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <em class="not-italic">Benefit 1</em>
+        </div>
+
+        <div class="relative left-[100px] text-center w-[200px] flex flex-col justify-center items-center">
+          <div class="mb-4">{% render "icon-star-2" %}</div>
+          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <em class="not-italic">Benefit 1</em>
+        </div>
+      </div>
+
+      <img
+        class="h-[300px]"
+        src="{{ 'image_10_1.png' |  file_img_url: "master" }}"
+        alt="cereal">
+
+      <div class="h-[500px] flex flex-col justify-between">
+        <div class="text-center w-[200px] flex flex-col justify-center items-center">
+          <div class="mb-4">{% render "icon-star-3" %}</div>
+          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <em class="not-italic">Benefit 1</em>
+        </div>
+
+        <div class="relative right-[100px] text-center w-[200px] flex flex-col justify-center items-center">
+          <div class="mb-4">{% render "icon-star-1" %}</div>
+          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <em class="not-italic">Benefit 1</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chart w-full md:h-[160vh] h-auto pt-[100px] bg-[#C3E2FE] flex justify-center items-center">
+  <div class="chart-container w-[90%] h-[70%] relative flex flex-col items-center [&>img]:z-0">
+    {% comment %} <img
+                  class="absolute top-[120px]"
+                  src="{{ 'Cloud.png' | file_img_url: "master" }}"
+                  alt="Cloud" />
+                <img
+                  class="absolute top-[100px] left-[250px] hidden md:block"
+                  src="{{ 'Star_3.png' | file_img_url: "master" }}"
+                  alt="Star" />
+                <img
+                  class="absolute bottom-[200px] hidden md:block"
+                  src="{{ 'Packet_1.png' | file_img_url: "master" }}"
+                  alt="Packet" />
+    
+                <img
+                  class="absolute right-[0px] top-[150px]"
+                  src="{{ 'Cloud_1.png' | file_img_url: "master" }}"
+                  alt="Cloud" />
+                <img
+                  class="absolute right-[280px] top-[200px] hidden md:block"
+                  src="{{ 'Star_1.png' | file_img_url: "master" }}"
+                  alt="Star"
+                  "/>
+            
+                <img class="
+                  absolute
+                  right-[250px]
+                  top-[100px]
+                  hidden
+                  md:block" src="
+                  {{ 'Packet_2.png' | file_img_url: "master" }}
+                  " alt="
+                  Packet"/>
+    
+                <img class="
+                  absolute
+                  right-[0px]
+                  bottom-[100px]
+                  hidden
+                  md:block" src="
+                  {{ 'Packet.png' | file_img_url: "master" }}
+                  " alt="
+                  Packet"/>
+        
+                <img class="
+                    absolute
+                    bottom-[100px]
+                    hidden
+                    md:block" src="
+                    {{ 'Star_2.png' | file_img_url: "master" }}
+                    " alt="
+                Star"/> {% endcomment %}
+
+    <div id="snack-save-table-container" data-section-id="{{ section.id }}">
+      {% render 'table'
+        , section: section %}
+    </div>
+
+
+    <a href="#" class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
+      Shop Now
+    </a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const tableContainer = document.getElementById('snack-save-table-container');
+  const sectionId = tableContainer.dataset.sectionId;
+  
+  function validateTableStructure() {
+    const rows = tableContainer.querySelectorAll('.snack-save-row');
+    const columnCount = tableContainer.querySelectorAll('.snack-save-header .snack-save-cell').length - 1; // Subtract 1 for the header cell
+    
+    rows.forEach((row, rowIndex) => {
+      const cells = row.querySelectorAll('.snack-save-cell');
+      if (cells.length - 1 !== columnCount) { // Subtract 1 for the row title cell
+        console.warn(`Row ${rowIndex + 1} has ${cells.length - 1} cells, expected ${columnCount}.`);
+      }
+    });
+  }
+  
+  validateTableStructure();
+  });
+</script>
+
+{% schema %}
+    {
+      "name": "Snack Save Table",
+      "settings": [
+        {
+          "type": "text",
+          "id": "table_title",
+          "label": "Table Title",
+          "default": "NUTRITIONAL CHART"
+        },
+        {
+          "type": "text",
+          "id": "header_title",
+          "label": "Header Title",
+          "default": "x"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "column",
+          "name": "Column",
+          "settings": [
+            {
+              "type": "text",
+              "id": "column_title",
+              "label": "Column Title",
+              "default": "Snack"
+            },
+            {
+              "type": "image_picker",
+              "id": "column_image",
+              "label": "Column Image"
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "name": "Row",
+          "settings": [
+            {
+              "type": "text",
+              "id": "row_title",
+              "label": "Row Title",
+              "default": "Stack 1"
+            }
+          ]
+        },
+        {
+          "type": "cell",
+          "name": "Cell",
+          "settings": [
+            {
+              "type": "number",
+              "id": "row_index",
+              "label": "Row Index",
+              "default": 0,
+              "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
+            },
+            {
+              "type": "text",
+              "id": "button_text",
+              "label": "Button Text",
+              "default": "Save"
+            },
+            {
+              "type": "color",
+              "id": "button_color",
+              "label": "Button Color",
+              "default": "#000000"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Snack Save Table",
+          "blocks": [
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            },
+            {
+              "type": "row"
+            },
+            {
+              "type": "cell"
+            },
+            {
+              "type": "cell"
+            }
+          ]
+        }
+      ]
+    }
+    {% endschema %}
+
+{% comment %} Variant selector script {% endcomment %}
+<script>
+   class VariantSelector extends HTMLElement {
+  constructor() {
+    super();
+    this.addEventListener("change", this.onVariantChange.bind(this));
+  }
+  
+  connectedCallback() {
+    document.querySelectorAll('.custom-select .option-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        this.onVariantChange();
+      });
+    });
+  }
+  
+  onVariantChange() {
+    this.getSelectedOptions();
+    this.getSelectedVariant();
+  
+    if (this.currentVariant) {
+      this.updateURL();
+      this.updateFormID();
+      this.updatePrice();
+    } else {
+      console.warn('No matching variant found.');
+    }
+  }
+  
+  getSelectedOptions() {
+    this.options = Array.from(this.querySelectorAll('.selected-option'), (select) => select.getAttribute('data-selected'));
+    console.log('Selected options:', this.options);
+  }
+  
+  getVariantJSON() {
+    if (!this.variantData) {
+      const jsonData = this.querySelector('[type="application/json"]').textContent;
+      try {
+        this.variantData = JSON.parse(jsonData);
+      } catch (error) {
+        console.error('Failed to parse variant JSON:', error);
+        return [];
+      }
+    }
+    return this.variantData;
+  }
+  
+  getSelectedVariant() {
+    const variantData = this.getVariantJSON();
+    this.currentVariant = variantData.find(variant => {
+      return variant.options.every((option, index) => option === this.options[index]);
+    });
+  
+    console.log('Current variant:', this.currentVariant);
+  }
+  
+  updateURL() {
+    if (!this.currentVariant) return;
+    const url = new URL(window.location);
+    url.searchParams.set('variant', this.currentVariant.id);
+    window.history.replaceState({}, '', url.toString());
+  }
+  
+  updateFormID() {
+    const formInput = document.querySelector("#product-form input[name='id']");
+    if (formInput) {
+      formInput.value = this.currentVariant.id;
+    }
+  }
+  
+  updatePrice() {
+    fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+      .then(response => response.text())
+      .then(responseText => {
+        const html = new DOMParser().parseFromString(responseText, 'text/html');
+        const newPrice = html.getElementById(`price-${this.dataset.section}`);
+        const oldPrice = document.getElementById(`price-${this.dataset.section}`);
+        if (oldPrice && newPrice) {
+          oldPrice.innerHTML = newPrice.innerHTML;
+        }
+      })
+      .catch(error => console.error('Failed to update price:', error));
+  }
+  }
+  
+  customElements.define("variant-selector", VariantSelector);
+</script>
+
+{% comment %} Custom select script {% endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.custom-select').forEach(function(select) {
+    const selectedOption = select.querySelector('.selected-option');
+    const optionsList = select.nextElementSibling;
+    const optionItems = optionsList.querySelectorAll('.option-item');
+    const form = document.getElementById('product-form');
+  
+    select.addEventListener('click', function() {
+      optionsList.classList.toggle('hidden');
+    });
+  
+    optionItems.forEach(function(option) {
+      option.addEventListener('click', function() {
+  
+        const color = document.createElement('div');
+        
+        selectedOption.textContent = option.textContent;
+        color.classList.add('h-[25px]', 'w-[25px]');
+        color.style.backgroundColor = option.getAttribute('data-value');
+  
+        console.log(select.getAttribute('data-option-name'))
+  
+        if(select.getAttribute('data-option-name') === 'Color'){
+          selectedOption.appendChild(color);
+        }
+  
+        selectedOption.setAttribute('data-selected', option.getAttribute('data-value'));
+  
+        // Close the dropdown
+        optionsList.classList.add('hidden');
+  
+        // Update the hidden select input value
+        const hiddenInput = document.createElement('input');
+  
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = `options[${select.getAttribute('data-option-name')}]`;
+        hiddenInput.value = option.getAttribute('data-value');
+  
+        // Remove any existing hidden input for the same option
+        const existingInput = select.parentNode.querySelector(`input[name="options[${select.getAttribute('data-option-name')}]"]`);
+        if (existingInput) {
+          existingInput.remove();
+        }
+  
+        select.parentNode.appendChild(hiddenInput);
+  
+        // Trigger the variant change
+        const variantSelector = document.querySelector('variant-selector');
+        if (variantSelector) {
+          variantSelector.onVariantChange();
+        }
+      });
+    });
+  
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+      if (!select.contains(e.target) && !optionsList.contains(e.target)) {
+        optionsList.classList.add('hidden');
+      }
+    });
+  });
+  });
+</script>
+
+{% comment %} Quantity selector {% endcomment %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const quantityInput = document.querySelector('.quantity-input');
+      const decreaseButton = document.querySelector('.quantity-button.decrease');
+      const increaseButton = document.querySelector('.quantity-button.increase');
+      const priceDisplay = document.getElementById('price-display');
+      const variantPrice = {{ selected_variant.price }};
+  
+      function updatePrice() {
+        const quantity = parseInt(quantityInput.value);
+        const totalPrice = (quantity * variantPrice / 100).toFixed(2);
+        priceDisplay.textContent = '$' + totalPrice;
+      }
+  
+      decreaseButton.addEventListener('click', function() {
+        if (quantityInput.value > 1) {
+          quantityInput.value = parseInt(quantityInput.value) - 1;
+          updatePrice();
+        }
+      });
+  
+      increaseButton.addEventListener('click', function() {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+        updatePrice();
+      });
+  
+      quantityInput.addEventListener('change', updatePrice);
+  
+      // Initial price update
+      updatePrice();
+      });
+</script>

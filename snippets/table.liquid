@@ -1,0 +1,95 @@
+{% comment %} 
+  Snippet: snippets/table.liquid 
+{% endcomment %}
+
+<h2 class="snack-save-title helvetica text-4xl font-bold">{{ section.settings.table_title }}</h2>
+
+<div class="snack-save p-[50px] rounded-2xl my-16">
+  <div class="snack-save-container z-[2] mb-4">
+    <div class="snack-save-table">
+      <div class="snack-save-header">
+        <div class="snack-save-cell">{{ section.settings.header_title }}</div>
+        {% for block in section.blocks %}
+          {% if block.type == 'column' %}
+            <div class="snack-save-cell">
+              <img
+                src="{{ block.settings.column_image | img_url: '100x100' }}"
+                alt="{{ block.settings.column_title }}"
+                loading="lazy">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% assign row_index = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'row' %}
+          <div class="snack-save-row">
+            <div class="snack-save-cell">{{ block.settings.row_title }}</div>
+            {% for cell_block in section.blocks %}
+              {% if cell_block.type == 'cell' and cell_block.settings.row_index == row_index %}
+                <div class="snack-save-cell">
+                  <button class="snack-save-button" style="background-color: {{ cell_block.settings.button_color }};">
+                    {{ cell_block.settings.button_text }}
+                  </button>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% assign row_index = row_index | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .snack-save{
+    background-color: #fff;
+  }
+
+  .snack-save-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .snack-save-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .snack-save-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #000;
+  }
+  .snack-save-header,
+  .snack-save-row {
+    display: table-row;
+  }
+  .snack-save-cell {
+    display: table-cell;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid #000;
+  }
+  .snack-save-cell img {
+    max-width: 100%;
+    height: auto;
+  }
+  .snack-save-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .snack-save-cell {
+      padding: 5px;
+    }
+    .snack-save-button {
+      padding: 3px 6px;
+      font-size: 0.8em;
+    }
+  }
+</style>

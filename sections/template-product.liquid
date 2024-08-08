@@ -1,6 +1,13 @@
 {% assign selected_variant = product.selected_or_first_available_variant %}
 
 <style>
+  :root {
+    --jdgm-primary-color: #F79219 !important;
+    --jdgm-star-color: #F79219 !important;
+    --jdgm-write-review-bg-color: #F79219 !important;
+    --jdgm-paginate-color: #F79219 !important;
+    --jdgm-reviewer-name-color: #F79219 !important;
+  }
   .product-image {
     background-position: center;
     background-repeat: no-repeat;
@@ -100,6 +107,27 @@
     box-shadow: 2px 2px 0 0 #000000;
     width: fit-content;
   }
+
+  .jdgm-histogram__bar-content,
+  .jdgm-rev__icon::after,
+  .jdgm-rev[data-verified-buyer=true] .jdgm-rev__icon.jdgm-rev__icon:after,
+  .jdgm-rev__buyer-badge.jdgm-rev__buyer-badge {
+    background: #F79219 !important;
+  }
+
+  .jdgm-rev-widg__title {
+    font-family: 'Helvetica-now'
+    , sans-serif;
+    font-weight: 700;
+    font-size: 40px !important;
+    color: #1F2937;
+  }
+
+  .jdgm-rev-widg__summary-text,
+  .jdgm-rev-widg__summary-average {
+    color: #374151;
+    font-weight: 500;
+  }
 </style>
 
 <div class="mt-8">
@@ -125,7 +153,7 @@
                 <a
                   href="{{ product.url }}?variant={{ variant.id }}"
                   style="background-image: url({{ variant.image | img_url: large }})"
-                  class="block inset-0 overflow-hidden mb-2 w-fit h-[80px] w-[80px] border rounded-full border-solid border-black"></a>
+                  class="block inset-0 overflow-hidden mb-2 h-[80px] w-[80px] border rounded-full border-solid border-black"></a>
               {% endfor %}
             </div>
 
@@ -264,19 +292,19 @@
         src="{{ 'image_10_1.png' |  file_img_url: "master" }}"
         alt="cereal">
 
-        <div class="mb-4 md:mb-0 md:h-[500px] flex flex-col gap-2 md:gap-0  md:justify-between md:hidden">
-            <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
-              <div class="mb-4">{% render "icon-star-1" %}</div>
-              <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <em class="not-italic">Benefit 1</em>
-            </div>
-    
-            <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
-              <div class="mb-4">{% render "icon-star-2" %}</div>
-              <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <em class="not-italic">Benefit 1</em>
-            </div>
-          </div>
+      <div class="mb-4 md:mb-0 md:h-[500px] flex flex-col gap-2 md:gap-0  md:justify-between md:hidden">
+        <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
+          <div class="mb-4">{% render "icon-star-1" %}</div>
+          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <em class="not-italic">Benefit 1</em>
+        </div>
+
+        <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
+          <div class="mb-4">{% render "icon-star-2" %}</div>
+          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <em class="not-italic">Benefit 1</em>
+        </div>
+      </div>
 
       <div class="md:h-[500px] flex flex-col gap-2 md:gap-0 md:justify-between">
         <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
@@ -293,73 +321,93 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="chart w-full md:h-[160vh] h-auto pt-[100px] bg-[#C3E2FE] flex justify-center items-center">
-  <div class="chart-container w-[90%] h-[70%] mb-36 md:mb-0 relative flex flex-col items-center [&>img]:z-0">
-    {% comment %} <img
-                  class="absolute top-[120px]"
-                  src="{{ 'Cloud.png' | file_img_url: "master" }}"
-                  alt="Cloud" />
-                <img
-                  class="absolute top-[100px] left-[250px] hidden md:block"
-                  src="{{ 'Star_3.png' | file_img_url: "master" }}"
-                  alt="Star" />
-                <img
-                  class="absolute bottom-[200px] hidden md:block"
-                  src="{{ 'Packet_1.png' | file_img_url: "master" }}"
-                  alt="Packet" />
-    
-                <img
-                  class="absolute right-[0px] top-[150px]"
-                  src="{{ 'Cloud_1.png' | file_img_url: "master" }}"
-                  alt="Cloud" />
-                <img
-                  class="absolute right-[280px] top-[200px] hidden md:block"
-                  src="{{ 'Star_1.png' | file_img_url: "master" }}"
-                  alt="Star"
-                  "/>
-            
-                <img class="
-                  absolute
-                  right-[250px]
-                  top-[100px]
-                  hidden
-                  md:block" src="
-                  {{ 'Packet_2.png' | file_img_url: "master" }}
-                  " alt="
-                  Packet"/>
-    
-                <img class="
-                  absolute
-                  right-[0px]
-                  bottom-[100px]
-                  hidden
-                  md:block" src="
-                  {{ 'Packet.png' | file_img_url: "master" }}
-                  " alt="
-                  Packet"/>
-        
-                <img class="
-                    absolute
-                    bottom-[100px]
-                    hidden
-                    md:block" src="
-                    {{ 'Star_2.png' | file_img_url: "master" }}
-                    " alt="
-                Star"/> {% endcomment %}
+  <div class="chart w-full md:h-[160vh] h-auto pt-[100px] bg-[#C3E2FE] flex justify-center items-center">
+    <div class="chart-container w-[90%] h-[70%] mb-36 md:mb-0 flex flex-col items-center [&>img]:z-0">
+      <div class="w-full relative">
+        <img
+          class="absolute top-[120px]"
+          src="{{ 'Cloud.png' | file_img_url: "master" }}"
+          alt="Cloud" />
+        <img
+          class="absolute top-[100px] left-[250px] hidden md:block"
+          src="{{ 'Star_3.png' | file_img_url: "master" }}"
+          alt="Star" />
+        <img
+          class="absolute bottom-[200px] hidden md:block"
+          src="{{ 'Packet_1.png' | file_img_url: "master" }}"
+          alt="Packet" />
 
-    <div id="snack-save-table-container" data-section-id="{{ section.id }}">
-      {% render 'table'
-        , section: section %}
+        <img
+          class="absolute right-[0px] top-[150px]"
+          src="{{ 'Cloud_1.png' | file_img_url: "master" }}"
+          alt="Cloud" />
+        <img
+          class="absolute right-[280px] bottom-[0px] hidden md:block"
+          src="{{ 'Star_1.png' | file_img_url: "master" }}"
+          alt="Star"
+          "/>
+
+    <img class="
+          absolute
+          right-[250px]
+          top-[100px]
+          hidden
+          md:block" src="
+          {{ 'Packet_2.png' | file_img_url: "master" }}
+          " alt="
+          Packet"/>
+
+    <img class="
+          absolute
+          right-[0px]
+          bottom-[100px]
+          hidden
+          md:block" src="
+          {{ 'Packet.png' | file_img_url: "master" }}
+          " alt="
+          Packet"/>
+
+    <img class="
+          absolute
+          bottom-[100px]
+          hidden
+          md:block" src="
+          {{ 'Star_2.png' | file_img_url: "master" }}
+          " alt="
+          Star"/>
     </div>
 
+    <div class="
+          z-[10]" id="
+          snack-save-table-container" data-section-id="
+          {{ section.id }}
+          ">
+        {% render 'table'
+          , section: section %}
+      </div>
 
-    <a href="#" class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
-      Shop Now
-    </a>
+
+      <a href="#" class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
+        Shop Now
+      </a>
+    </div>
+  </div>
+
+  <div class="reviews w-[80%] mx-auto">
+    <!-- Start of Judge.me code -->
+    <div style='clear:both'></div>
+    <div
+      id='judgeme_product_reviews'
+      class='jdgm-widget jdgm-review-widget'
+      data-id='{{ product.id }}'>
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  <!-- End of Judge.me code -->
+
   </div>
 </div>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -383,102 +431,95 @@
 </script>
 
 {% schema %}
-    {
-      "name": "Snack Save Table",
-      "settings": [
-        {
-          "type": "text",
-          "id": "table_title",
-          "label": "Table Title",
-          "default": "NUTRITIONAL CHART"
-        },
-        {
-          "type": "text",
-          "id": "header_title",
-          "label": "Header Title",
-          "default": "x"
-        }
-      ],
-      "blocks": [
-        {
-          "type": "column",
-          "name": "Column",
-          "settings": [
-            {
-              "type": "text",
-              "id": "column_title",
-              "label": "Column Title",
-              "default": "Snack"
-            },
-            {
-              "type": "image_picker",
-              "id": "column_image",
-              "label": "Column Image"
-            }
-          ]
-        },
-        {
-          "type": "row",
-          "name": "Row",
-          "settings": [
-            {
-              "type": "text",
-              "id": "row_title",
-              "label": "Row Title",
-              "default": "Stack 1"
-            }
-          ]
-        },
-        {
-          "type": "cell",
-          "name": "Cell",
-          "settings": [
-            {
-              "type": "number",
-              "id": "row_index",
-              "label": "Row Index",
-              "default": 0,
-              "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
-            },
-            {
-              "type": "text",
-              "id": "button_text",
-              "label": "Button Text",
-              "default": "Save"
-            },
-            {
-              "type": "color",
-              "id": "button_color",
-              "label": "Button Color",
-              "default": "#000000"
-            }
-          ]
-        }
-      ],
-      "presets": [
-        {
-          "name": "Snack Save Table",
-          "blocks": [
-            {
-              "type": "column"
-            },
-            {
-              "type": "column"
-            },
-            {
-              "type": "row"
-            },
-            {
-              "type": "cell"
-            },
-            {
-              "type": "cell"
-            }
-          ]
-        }
-      ]
-    }
-    {% endschema %}
+  {
+    "name": "Snack Save Table",
+    "settings": [
+      {
+        "type": "text",
+        "id": "table_title",
+        "label": "Table Title",
+        "default": "NUTRITIONAL CHART"
+      }, {
+        "type": "text",
+        "id": "header_title",
+        "label": "Header Title",
+        "default": "x"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "text",
+            "id": "column_title",
+            "label": "Column Title",
+            "default": "Snack"
+          }, {
+            "type": "image_picker",
+            "id": "column_image",
+            "label": "Column Image"
+          }
+        ]
+      }, {
+        "type": "row",
+        "name": "Row",
+        "settings": [
+          {
+            "type": "text",
+            "id": "row_title",
+            "label": "Row Title",
+            "default": "Stack 1"
+          }
+        ]
+      }, {
+        "type": "cell",
+        "name": "Cell",
+        "settings": [
+          {
+            "type": "number",
+            "id": "row_index",
+            "label": "Row Index",
+            "default": 0,
+            "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
+          }, {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Save"
+          }, {
+            "type": "color",
+            "id": "button_color",
+            "label": "Button Color",
+            "default": "#000000"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Snack Save Table",
+        "blocks": [
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "row"
+          },
+          {
+            "type": "cell"
+          }, {
+            "type": "cell"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
 
 {% comment %} Variant selector script {% endcomment %}
 <script>

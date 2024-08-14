@@ -25,14 +25,14 @@
   }
 </style>
 
-<div class="flavors w-full md:h-[160vh] h-auto pt-[100px] bg-[#C3E2FE] flex justify-center items-center">
+<div class="flavors w-full md:h-[160vh] h-auto py-[100px] md:pt-[100px] md:pb-0 bg-[#C3E2FE] flex justify-center items-center">
   <div class="flavors-container w-[90%] h-[70%] relative flex items-center [&>img]:z-0">
     <img
-      class="absolute top-[120px]"
+      class="absolute left-[-110px] md:left-[0] top-[120px]"
       src="{{ 'Cloud.png' | file_img_url: "master" }}"
       alt="Cloud" />
     <img
-      class="absolute top-[100px] left-[250px] hidden md:block"
+      class="absolute top-[150px] left-[250px] hidden md:block"
       src="{{ 'Star_3.png' | file_img_url: "master" }}"
       alt="Star" />
     <img
@@ -41,7 +41,7 @@
       alt="Packet" />
 
     <img
-      class="absolute right-[0px] top-[150px]"
+      class="absolute right-[-150px] md:right-[0px] top-[200px]"
       src="{{ 'Cloud_1.png' | file_img_url: "master" }}"
       alt="Cloud" />
     <img

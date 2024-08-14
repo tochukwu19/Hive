@@ -1,13 +1,17 @@
 <style>
-    .hero-container{
-        height: calc(100vh - 70px);
+  .hero-container {
+    height: calc(100vh - 70px);
+
+    @media only screen and (max-width: 768px) {
+      height: auto;
     }
+  }
   .hero {
     background-image: url("{{ 'hero-image.png' | file_img_url: "master" }}");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transform: translate(0%,5%);
+    transform: translate(0%, 5%);
   }
 
   .marquee-text {
@@ -15,6 +19,11 @@
     , sans-serif;
     font-size: 18px;
     fill: black;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 32px;
+      transform: translateY(8px);
+    }
   }
 
   .shop_now {
@@ -22,22 +31,34 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,150%);
+    transform: translate(-50%, 150%);
     width: fit-content;
   }
 </style>
 
 <div class="w-[90%] mx-auto hero-container">
-  <div class="hero h-[80vh] relative overflow-x-clip w-full border border-solid border-[#000] rounded-[20px]">
-    <div class="w-[120%] left-[-10%] top-[25%] absolute overflow-hidden">
+  <div class="hero h-[50vh] md:h-[80vh] relative overflow-x-clip w-full border border-solid border-[#000] rounded-[20px]">
+    <div class="w-[120%] left-[-10%] top-[40%] md:top-[25%] absolute overflow-hidden">
       <svg
         width="100%"
         height="100%"
         viewBox="0 0 1000 200"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg">
+        <style>
+          #curve-background {
+            stroke-width: 40px;
+          }
+
+          @media (max-width: 768px) {
+            #curve-background {
+              stroke-width: 80px;
+            }
+          }
+        </style>
+
         <defs>
-          <path id="curve" d="M0,180 C250,10 750,190 1000,20" />
+          <path id="curve"d="M0,180 C250,10 750,190 1000,20"/>
         </defs>
 
         <path
@@ -55,7 +76,7 @@
 
         <text class="marquee-text" dy="5">
           <textPath href="#curve" startOffset="100%">
-            BOREM IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM
+            BOREM IPSUM DOLOR BOREM IPSUM DOLOR  IPSUM 
             <animate
               attributeName="startOffset"
               from="100%"
@@ -67,7 +88,7 @@
 
         <text class="marquee-text" dy="5">
           <textPath href="#curve" startOffset="100%">
-            IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM DOLOR
+            IPSUM DOLOR BOREM IPSUM DOLOR BOREM IPSUM 
             <animate
               attributeName="startOffset"
               from="100%"

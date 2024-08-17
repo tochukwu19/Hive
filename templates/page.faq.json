@@ -1,0 +1,12 @@
+{
+    "sections": {
+      "page-faq": {
+        "type": "template-page-faq",
+        "settings": {
+        }
+      }
+    },
+    "order": [
+      "page-faq"
+    ]
+  }

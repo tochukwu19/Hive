@@ -1,12 +1,43 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
-    "sections": {
-      "page-faq": {
-        "type": "template-page-faq",
-        "settings": {
+  "sections": {
+    "page-faq": {
+      "type": "template-page-faq",
+      "blocks": {
+        "faq_YKVQmm": {
+          "type": "faq",
+          "settings": {
+            "question": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis",
+            "answer": "Hello"
+          }
+        },
+        "faq_xHtDeV": {
+          "type": "faq",
+          "settings": {
+            "question": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis",
+            "answer": "Real answer"
+          }
         }
+      },
+      "block_order": [
+        "faq_YKVQmm",
+        "faq_xHtDeV"
+      ],
+      "settings": {
+        "title": "FAQ's",
+        "subtitle": "WE GOT ANSWERS TO YOUR QUESTIONS"
       }
-    },
-    "order": [
-      "page-faq"
-    ]
-  }
+    }
+  },
+  "order": [
+    "page-faq"
+  ]
+}

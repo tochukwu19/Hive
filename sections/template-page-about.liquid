@@ -1,0 +1,114 @@
+<style>
+  .jdgm-carousel-title {
+    font-size: 40px;
+    font-family: 'Helvetica-now'
+    , sans-serif;
+    font-weight: 700;
+    color: #1F2937;
+
+    @media only screen and (max-width: 600px) {
+      font-size: 25px;
+    }
+
+  }
+
+  .jdgm-star {
+    color: #FBBF24 !important;
+  }
+
+  .jdgm-all-reviews-rating {
+    margin: 15px 0;
+    color: #1F2937;
+  }
+
+  .jdgm-carousel-item {
+    background-color: #D2E9FF;
+    border: 1px solid #000;
+    padding: 20px !important;
+    border-radius: 15px;
+    margin-right: 13px;
+    color: #1F2937;
+
+    @media only screen and (max-width: 600px) {
+      margin-right: 0 !important;
+    }
+  }
+
+  .jdgm-carousel-item:nth-child(1n) {
+    background-color: #D2E9FF;
+  }
+
+  .jdgm-carousel-item:nth-child(2n) {
+    background-color: #FFEBD2;
+  }
+
+  .jdgm-carousel-item:nth-child(3n) {
+    background-color: #FFD2D2;
+  }
+
+  .jdgm-carousel-item:nth-child(4n) {
+    background-color: #FFEBDB;
+  }
+</style>
+
+<div>
+  <div class="text-[#1F2937] helvetica w-fit mx-auto my-8 text-center">
+    <h3>About Us</h3>
+    <h1 class="text-5xl font-[900]">Learn more about snack savy</h1>
+  </div>
+
+  <div class="w-[60%] mx-auto relative">
+    <div class="absolute left-[-70px] top-[250px] z-[-1]">
+      {% render "about-star-2" %}
+    </div>
+    <div class="absolute right-[-50px] top-[500px]">
+      {% render "about-star-1" %}
+    </div>
+    <div class="bg-white p-8 w-full mx-auto rounded-[18px] text-[#1F2937] mb-8">
+      <div class="w-full flex items-center justify-between my-8 gap-8">
+        <div class="w-1/2">
+          <h2 class="text-3xl mb-4 font-bold helvetica">Our Story</h2>
+          <p class="font-[500]">Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.</p>
+        </div>
+        <img
+          class="w-1/2 h-[512px] rounded-[18px] object-cover"
+          src="{{"about_image.png" | file_img_url: "master"}}"
+          alt="about image" />
+      </div>
+      <div class="w-full my-8">
+        <h2 class="text-3xl mb-4 font-bold helvetica">Our Mission</h2>
+        <p class="font-[500]">Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews w-full h-auto mb-16">
+
+    <div class="">
+      <!-- Start of Judge.me code -->
+      <div class='jdgm-carousel-wrapper'>
+        {% assign jm_metafields = shop.metafields.judgeme %}
+        <div class='jdgm-carousel-title-and-link'>
+          <h2 class='jdgm-carousel-title'>Let customers speak for us</h2>
+          <span class='jdgm-all-reviews-rating-wrapper' href='javascript:void(0)'>
+            <span
+              style='display:block'
+              data-score='{{ jm_metafields.all_reviews_rating }}'
+              class='jdgm-all-reviews-rating'
+              aria-label='{{ jm_metafields.all_reviews_rating }} stars'
+              tabindex='0'
+              role='img'></span>
+            <span
+              style='display: block'
+              class='jdgm-carousel-number-of-reviews font-bold helvetica'
+              data-number-of-reviews='{{ jm_metafields.all_reviews_count }}'>
+              {{ shop.metafields.judgeme.all_reviews_count }} reviews
+            </span>
+          </span>
+        </div>
+        {{ jm_metafields.featured_carousel }}
+      </div>
+    <!-- End of Judge.me code -->
+    </div>
+  </div>
+</div>

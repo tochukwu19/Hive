@@ -1,0 +1,139 @@
+{% schema %}
+  {
+    "name": "FAQ Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "FAQ's"
+      }, {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "WE GOT ANSWERS TO YOUR QUESTIONS"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "faq",
+        "name": "FAQ Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question",
+            "default": "Enter your question here"
+          }, {
+            "type": "textarea",
+            "id": "answer",
+            "label": "Answer",
+            "default": "Enter your answer here"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "FAQ Section",
+        "blocks": [
+          {
+            "type": "faq"
+          }, {
+            "type": "faq"
+          }, {
+            "type": "faq"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="faq-container">
+  <h1>{{ section.settings.title }}</h1>
+  <h2>{{ section.settings.subtitle }}</h2>
+
+  <div class="faq-section">
+    <h3>GENERAL</h3>
+    <div id="faq-list">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <div class="faq-question" onclick="toggleAnswer({{ forloop.index0 }})">
+              <span>{{ block.settings.question }}</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">{{ block.settings.answer }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{% for block in section.blocks %}
+        {% if block.type == 'faq' %}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.question | json }},
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": {{ block.settings.answer | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endif %}
+        {% endfor %}]
+    }
+</script>
+
+<style>
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .faq-section {
+    background-color: #fff5e6;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .faq-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .faq-question span {
+    flex-grow: 1;
+  }
+
+  .faq-answer {
+    display: none;
+    margin-top: 10px;
+  }
+</style>
+
+<script>
+      function toggleAnswer(index) {
+        const faqItems = document.querySelectorAll('.faq-item');
+        const answer = faqItems[index].querySelector('.faq-answer');
+        const icon = faqItems[index].querySelector('.fa-chevron-down');
+    
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        icon.style.transform = answer.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0)';
+      }
+</script>

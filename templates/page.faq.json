@@ -1,12 +1,34 @@
 {
-    "sections": {
-      "page-faq": {
-        "type": "template-page-faq",
-        "settings": {
+  "sections": {
+    "page-faq": {
+      "type": "template-page-faq",
+      "blocks": {
+        "faq_YKVQmm": {
+          "type": "faq",
+          "settings": {
+            "question": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis",
+            "answer": "Hello"
+          }
+        },
+        "faq_xHtDeV": {
+          "type": "faq",
+          "settings": {
+            "question": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis",
+            "answer": "Real answer"
+          }
         }
+      },
+      "block_order": [
+        "faq_YKVQmm",
+        "faq_xHtDeV"
+      ],
+      "settings": {
+        "title": "FAQ's",
+        "subtitle": "WE GOT ANSWERS TO YOUR QUESTIONS"
       }
-    },
-    "order": [
-      "page-faq"
-    ]
-  }
+    }
+  },
+  "order": [
+    "page-faq"
+  ]
+}

@@ -53,8 +53,8 @@
 
 <div>
   <div class="text-[#1F2937] helvetica w-fit mx-auto my-8 text-center">
-    <h3>About Us</h3>
-    <h1 class="text-5xl font-[900]">Learn more about snack savy</h1>
+    <h3>{{ page.title }}</h3>
+    <h1 class="text-5xl font-[900]">{{ section.settings.about_title  }}</h1>
   </div>
 
   <div class="w-[60%] mx-auto relative">
@@ -67,8 +67,8 @@
     <div class="bg-white p-8 w-full mx-auto rounded-[18px] text-[#1F2937] mb-8">
       <div class="w-full flex items-center justify-between my-8 gap-8">
         <div class="w-1/2">
-          <h2 class="text-3xl mb-4 font-bold helvetica">Our Story</h2>
-          <p class="font-[500]">Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.</p>
+          <h2 class="text-3xl mb-4 font-bold helvetica">{{ section.settings.our_story_title }}</h2>
+          <p class="font-[500]">{{ section.settings.our_story_content }}</p>
         </div>
         <img
           class="w-1/2 h-[512px] rounded-[18px] object-cover"
@@ -76,8 +76,8 @@
           alt="about image" />
       </div>
       <div class="w-full my-8">
-        <h2 class="text-3xl mb-4 font-bold helvetica">Our Mission</h2>
-        <p class="font-[500]">Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.</p>
+        <h2 class="text-3xl mb-4 font-bold helvetica">{{ section.settings.our_mission_title }}</h2>
+        <p class="font-[500]">{{ section.settings.our_mission_content }}</p>
       </div>
     </div>
   </div>
@@ -112,3 +112,41 @@
     </div>
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "Main Title",
+      "default": "Learn more about snack savy"
+    },
+    {
+      "type": "text",
+      "id": "our_story_title",
+      "label": "Our Story Title",
+      "default": "Our Story"
+    },
+    {
+      "type": "richtext",
+      "id": "our_story_content",
+      "label": "Our Story Content",
+      "default": "<p>Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.</p>"
+    }
+    {
+      "type": "text",
+      "id": "our_mission_title",
+      "label": "Our Mission Title",
+      "default": "Our Mission"
+    },
+    {
+      "type": "richtext",
+      "id": "our_mission_content",
+      "label": "Our Mission Content",
+      "default": "<p>Gorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.</p>"
+    }
+  ]
+}
+{% endschema %}

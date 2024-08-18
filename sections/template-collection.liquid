@@ -9,73 +9,17 @@
 </style>
 
 <div class="w-[90%] mx-auto my-8">
-  <h2 class="text-2xl md:text-4xl text-center mb-8 helvetica text-[#1F2937] w-[90%] md:w-[40%] mx-auto">You've never had a chocolate bar this good!</h2>
+  <h2 class="text-2xl md:text-4xl text-center mb-8 helvetica text-[#1F2937] w-[90%] md:w-[40%] mx-auto">{{ collection.title }}</h2>
 
-  <div class="mb-8 flex justify-start w-fit mx-auto bg-[#fff] border border-solid border-black p-[2px] md:rounded-[53px] md:flex-row flex-col rounded-[20px]">
-    <button class="filter-button active px-4 py-2" data-filter="all">All Products</button>
-    {% for variant in collections.frontpage.all_products.first.variants %}
-      <button class="filter-button px-4 py-2" data-filter="{{ variant.title | handleize }}">{{ variant.title }}</button>
-    {% endfor %}
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {% for collection in collections %}
-      {% if collection.title == "Home page" %}
-      {% else %}
-        <div class="relative group">
-          <a
-            href="{{ collection.url }}"
-            class="relative product-item"
-            data-filter="{{ collection.all_products.first.variants.first.title | handleize }}">
-            <div class="relative overflow-hidden rounded-xl">
-              <img
-                src="{{ collection.image | img_url: 'master' }}"
-                alt="{{ collection.title }}"
-                class="w-full h-full object-cover transition-transform transform group-hover:scale-105">
-            </div>
-          </a>
-
-          <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-end pb-4 opacity-0 group-hover:opacity-100 transition-opacity flex-col rounded-xl">
-            <h3 class="text-white text-center text-2xl font-bold">{{ collection.title }}</h3>
-
-            <a 
-            href="/pages/store-locator"
-            id="find_in_stores" class="block flex items-center justify-center rounded-[30px] bg-[#fff] text-black border border-solid border-black px-4 md:px-8 text-sm md:text-[16px] h-[30px] md:h-[42px] my-4 w-[90%] text-center">
-              Find In Stores
-            </a>
-            <a
-              href="{{ collection.url }}"
-              id="shop_now"
-              data-collection="{{ collection.title }}"
-              class="block flex items-center justify-center rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-4 md:px-8 mx-auto text-sm md:text-[16px] h-[30px] md:h-[42px] w-[90%] text-center">
-              Shop Now
-            </a>
-          </div>
-        </div>
-      {% endif %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-16">
+    {% for product in collection.products %}
+      {% assign prod_id = forloop.index | plus: paginate.current_offset %}
+      <div>
+        {% render "product-card"
+          , product: product %}
+      </div>
+    {% else %}
+      <p>No products found.</p>
     {% endfor %}
   </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-  const filterButtons = document.querySelectorAll('.filter-button');
-  const productItems = document.querySelectorAll('.product-item');
-  
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter;
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-  
-      productItems.forEach(item => {
-        if (filter === 'all' || item.dataset.filter === filter) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
-  });
-</script>

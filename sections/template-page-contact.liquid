@@ -1,21 +1,31 @@
-<style></style>
+<style>
+  .setting-color {
+    background-color: {{ section.settings.background_color }}; 
+
+    @media only screen and (max-width: 600px) {
+      width: 80% !important;
+    }
+  }
+</style>
 
 <div class="w-full">
   <div class="text-[#1F2937] helvetica w-fit mx-auto my-16 text-center">
-    <h3>Contact Us</h3>
-    <h1 class="text-5xl font-[900]">We love hearing from you</h1>
+    <h3>{{ section.settings.subtitle }}</h3>
+    <h1 class="text-3xl md:text-5xl font-[900]">{{ section.settings.title }}</h1>
   </div>
 
-  <div class="relative bg-[#C3C4FE] px-6 py-8 rounded-[19px] w-[80%] md:w-[50%] lg:w-[40%] mt-32 mb-8 mx-auto border border-black flex items-center flex-col">
+  <div class="relative bg-[{{ section.settings.background_color }}] px-6 py-8 rounded-[19px] w-[{{ section.settings.content_width }}%] md:w-[50%] mt-32 mb-8 mx-auto border border-black flex items-center flex-col setting-color"
+    style="width: {{ section.settings.content_width }}%"
+  >
     <div class="absolute top-[-57px] w-fit">
-        {% render "clipboard" %}
+      {% render "clipboard" %}
     </div>
     <div class="w-full p-6 bg-white border border-black rounded-[19px]">
-      <h2 class="helvetica text-3xl font-[900] text-[#1F2937] text-center">CONTACT US</h2>
+      <h2 class="helvetica text-2xl md:text-3xl font-[900] text-[#1F2937] text-center">{{ section.settings.form_title }}</h2>
       {% form 'contact'
         , class: 'space-y-4' %}
         {% if form.posted_successfully? %}
-          <p class="text-green-600 text-center">Thanks for contacting us! We'll get back to you soon.</p>
+          <p class="text-green-600 text-center">{{ section.settings.success_message }}</p>
         {% endif %}
 
         {% if form.errors %}
@@ -69,10 +79,61 @@
             placeholder="Enter your message..."></textarea>
         </div>
 
-        <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+        <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[{{ section.settings.button_color }}] hover:bg-[{{ section.settings.button_color | color_darken: 10 }}] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[{{ section.settings.button_color }}]" style="background-color: {{ section.settings.button_color }}">
           Submit
         </button>
       {% endform %}
     </div>
   </div>
 </div>
+
+{% schema %}
+  {
+    "name": "Contact Us Page",
+    "settings": [
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Contact Us"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Main Title",
+        "default": "We love hearing from you"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#C3C4FE"
+      },
+      {
+        "type": "text",
+        "id": "form_title",
+        "label": "Form Title",
+        "default": "CONTACT US"
+      }, {
+        "type": "range",
+        "id": "content_width",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Content Width",
+        "default": 60
+      }, {
+        "type": "text",
+        "id": "success_message",
+        "label": "Success Message",
+        "default": "Thanks for contacting us! We'll get back to you soon."
+      }, {
+        "type": "color",
+        "id": "button_color",
+        "label": "Submit Button Color",
+        "default": "#F97316"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,69 @@
+<style>
+  .setting-color {
+    background-color: {{ section.settings.background_color }};
+
+    @media only screen and (max-width: 600px) {
+      width: 80% !important;
+    }
+  }
+</style>
+
+<div class="w-full">
+  <div class="text-[#1F2937] helvetica w-fit mx-auto my-16 text-center">
+    <h3>Effective Date: {{ section.settings.effective_date }}</h3>
+    <h1 class="text-3xl md:text-5xl font-[900]">{{ section.settings.page_title }}</h1>
+  </div>
+
+  <div class="relative bg-[{{ section.settings.background_color }}] px-6 py-8 rounded-[19px] w-[{{ section.settings.content_width }}%] md:w-[50%] mt-32 mb-8 mx-auto border border-black flex items-center flex-col setting-color" style="width: {{ section.settings.content_width }}%">
+    <div class="absolute top-[-57px] w-fit">
+      {% render "clipboard" %}
+    </div>
+    <div class="w-full p-6 bg-white border border-black rounded-[19px]">
+      <h2 class="helvetica text-2xl md:text-3xl font-[900] text-[#1F2937] text-center">{{ section.settings.section_title }}</h2>
+      <div class="py-6">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Privacy & Terms Page",
+    "settings": [
+      {
+        "type": "text",
+        "id": "effective_date",
+        "label": "Effective Date",
+        "default": "September 27, 2023"
+      },
+      {
+        "type": "text",
+        "id": "page_title",
+        "label": "Page Title",
+        "default": "PRIVACY & TERMS"
+      },
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "Our Privacy policy & terms"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#FFEBD2"
+      }, {
+        "type": "range",
+        "id": "content_width",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Content Width",
+        "default": 60
+      }
+    ]
+  }
+{% endschema %}

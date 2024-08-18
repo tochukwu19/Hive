@@ -1,2 +1,55 @@
-<h1 class="page-title">{{ page.title }}</h1>
-<div>{{ page.content }}</div>
+<style>
+  .setting-color {
+    background-color: {{ section.settings.background_color }};
+
+    @media only screen and (max-width: 600px) {
+      width: 80% !important;
+    }
+  }
+</style>
+
+<div class="w-full">
+  
+  {% if page.title == "Store Locator" %}
+    <div>
+      <h1 class="page-title">{{ page.title }}</h1>
+      <div>{{ page.content }}</div>
+    </div>
+  {% else %}
+
+    <div class="relative bg-[{{ section.settings.background_color }}] px-6 py-8 rounded-[19px] w-[{{ section.settings.content_width }}%] md:w-[50%] mt-32 mb-8 mx-auto border border-black flex items-center flex-col setting-color" style="width: {{ section.settings.content_width }}%">
+      <div class="absolute top-[-57px] w-fit">
+        {% render "clipboard" %}
+      </div>
+      <div class="w-full p-6 bg-white border border-black rounded-[19px]">
+        <h2 class="helvetica text-2xl md:text-3xl font-[900] text-[#1F2937] text-center">{{ page.title }}</h2>
+        <div class="py-6">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Template Page",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#FFEBD2"
+      }, {
+        "type": "range",
+        "id": "content_width",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Content Width",
+        "default": 60
+      }
+    ]
+  }
+{% endschema %}

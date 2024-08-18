@@ -51,20 +51,26 @@
 {% endschema %}
 
 <div class="faq-container">
-  <h1>{{ section.settings.title }}</h1>
-  <h2>{{ section.settings.subtitle }}</h2>
+  <div class="h-[500px] w-full faq-wave flex justify-center pt-16">
+    <div class="text-[#1F2937] helvetica w-[80%] lg:w-1/2 mx-auto my-16 text-center">
+      <h3 class="mb-8">{{ section.settings.title }}</h3>
+      <h1 class="text-3xl md:text-5xl font-[900]">{{ section.settings.subtitle }}</h1>
+    </div>
+  </div>
 
-  <div class="faq-section">
-    <h3>GENERAL</h3>
+  <div class="faq-section w-[80%] md:w-[70%] lg:w-[60%] mx-auto my-16">
+    <h3 class="text-2xl md:text-3xl helvetica text-[#1F2937] text-center font-[900] mt-8 mb-16">GENERAL</h3>
     <div id="faq-list">
       {% for block in section.blocks %}
         {% if block.type == 'faq' %}
-          <div class="faq-item" {{ block.shopify_attributes }}>
+          <div class="faq-item helvetica-regular" {{ block.shopify_attributes }}>
             <div class="faq-question" onclick="toggleAnswer({{ forloop.index0 }})">
-              <span>{{ block.settings.question }}</span>
-              <i class="fas fa-chevron-down"></i>
+              <span class="select-none font-[500]">{{ block.settings.question }}</span>
+              <div class="fas fa-chevron-down">
+                {% render "icon-down-faq" %}
+              </div>
             </div>
-            <div class="faq-answer">{{ block.settings.answer }}</div>
+            <div class="faq-answer select-none font-[500]">{{ block.settings.answer }}</div>
           </div>
         {% endif %}
       {% endfor %}
@@ -76,38 +82,42 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [{% for block in section.blocks %}
-        {% if block.type == 'faq' %}
-          {
-            "@type": "Question",
-            "name": {{ block.settings.question | json }},
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": {{ block.settings.answer | json }}
-            }
-          }{% unless forloop.last %},{% endunless %}
-        {% endif %}
-        {% endfor %}]
-    }
+    "mainEntity": [{% for block in section.blocks %}{% if block.type == 'faq' %}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ block.settings.answer | json }}
+          }
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+      {% endfor %}]
+  }
 </script>
 
 <style>
   .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 100%;
+  }
+
+  .faq-wave {
+    background-image: url("{{ 'faq_wave.png' | file_img_url: "master" }}");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
   }
 
   .faq-section {
-    background-color: #fff5e6;
+    background-color: #FFEBD2;
     padding: 20px;
     border-radius: 8px;
   }
 
   .faq-item {
     margin-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 15px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 25px;
   }
 
   .faq-question {

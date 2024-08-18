@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Helvetica-now';
+    font-family: 'Helvetica-now-regular';
     src: url('{{ "HelveticaNowDisplay-Regular.woff2" | file_url}}'),
     url("https://cdn.shopify.com/s/files/1/0606/4750/6051/files/HelveticaNowDisplay-Regular.woff2?v=1722705286") format('woff2');
     font-weight: 100 900;
@@ -46,4 +46,9 @@ body{
 .helvetica{
     font-family: 'Helvetica-now', sans-serif;
     font-weight: 700;
+}
+
+.helvetica-regular{
+    font-family: 'Helvetica-now-regular', sans-serif;
+    font-weight: 500;
 }

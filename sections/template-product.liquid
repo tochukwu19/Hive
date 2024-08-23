@@ -282,14 +282,14 @@
       <div class="h-[500px] hidden md:flex flex-col justify-between">
         <div class="text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-1" %}</div>
-          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p class="text-lg font-[500]">{{ section.settings.benefit_1 }}</p>
           <em class="not-italic">Benefit 1</em>
         </div>
 
         <div class="relative left-[100px] text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-2" %}</div>
-          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <em class="not-italic">Benefit 1</em>
+          <p class="text-lg font-[500]">{{ section.settings.benefit_2 }}</p>
+          <em class="not-italic">Benefit 2</em>
         </div>
       </div>
 
@@ -301,35 +301,35 @@
       <div class="mb-4 md:mb-0 md:h-[500px] flex flex-col gap-2 md:gap-0  md:justify-between md:hidden">
         <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-1" %}</div>
-          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p class="text-lg font-[500]">{{ section.settings.benefit_1 }}</p>
           <em class="not-italic">Benefit 1</em>
         </div>
 
         <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-2" %}</div>
-          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <em class="not-italic">Benefit 1</em>
+          <p class="text-lg font-[500]">{{ section.settings.benefit_2 }}</p>
+          <em class="not-italic">Benefit 2</em>
         </div>
       </div>
 
       <div class="md:h-[500px] flex flex-col gap-2 md:gap-0 md:justify-between">
         <div class="mb-8 md:mb-0 text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-3" %}</div>
-          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <em class="not-italic">Benefit 1</em>
+          <p class="text-lg font-[500]">{{ section.settings.benefit_3 }}</p>
+          <em class="not-italic">Benefit 3</em>
         </div>
 
         <div class="mb-8 md:mb-0 relative md:right-[100px] text-center w-[200px] flex flex-col justify-center items-center">
           <div class="mb-4">{% render "icon-star-1" %}</div>
-          <p class="text-lg font-[500]">Korem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <em class="not-italic">Benefit 1</em>
+          <p class="text-lg font-[500]">{{ section.settings.benefit_4 }}</p>
+          <em class="not-italic">Benefit 4</em>
         </div>
       </div>
     </div>
   </div>
 
   <div class="chart w-full md:h-[160vh] h-auto pt-[100px] bg-[#C3E2FE] flex justify-center items-center">
-    <div class="chart-container w-[90%] h-[70%] mb-36 md:mb-0 flex flex-col items-center [&>img]:z-0">
+    <div class="chart-container w-[90%] h-[70%] mb-36 flex flex-col items-center [&>img]:z-0">
       <div class="w-full relative">
         <img
           class="absolute top-[120px]"
@@ -400,7 +400,7 @@
     </div>
   </div>
 
-  
+
 </div>
 
 
@@ -434,11 +434,34 @@
         "id": "table_title",
         "label": "Table Title",
         "default": "NUTRITIONAL CHART"
-      }, {
+      },
+      {
         "type": "text",
         "id": "header_title",
         "label": "Header Title",
         "default": "x"
+      },
+      {
+        "type": "text",
+        "id": "benefit_1",
+        "label": "Benefit 1",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      },
+      {
+        "type": "text",
+        "id": "benefit_2",
+        "label": "Benefit 2",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      }, {
+        "type": "text",
+        "id": "benefit_3",
+        "label": "Benefit 3",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      }, {
+        "type": "text",
+        "id": "benefit_4",
+        "label": "Benefit 4",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
       }
     ],
     "blocks": [

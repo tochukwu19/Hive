@@ -158,114 +158,126 @@
                   value="{{ variant.values.first }}">
                 <a
                   href="{{ product.url }}?variant={{ variant.id }}"
-                  style="background-image: url({{ variant.image | img_url: large }})"
+                  style="background-image: url({{ variant.image | img_url: 'large' }})"
                   class="block inset-0 overflow-hidden mb-2 h-[80px] w-[80px] border rounded-full border-solid border-black"></a>
               {% endfor %}
             </div>
 
             <div class="block h-[500px] w-full overflow-hidden flex justify-start">
-              <div class="product-image h-full w-full mb-10 shadow-md" style="background-image: url({{ product.featured_image | img_url: "master"}})"></div>
+              <div class="product-image h-full w-full mb-10 shadow-md" style="background-image: url({{ product.featured_image | img_url: 'master' }})"></div>
             </div>
-
           </div>
 
           <div class="w-full md:w-[40%] mb-8">
-            <h1 class="w-fit helvetica text-lg font-bold uppercase px-8 py-2 rounded-full bg-[#F79219] text-[#fff]">{{ product.title }}</h1>
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'title' %}
+                  <h1 class="w-fit helvetica text-lg font-bold uppercase px-8 py-2 rounded-full bg-[#F79219] text-[#fff]">{{ product.title }}</h1>
 
-            <div class="my-4">
-              <!-- Start of Judge.me code -->
-              <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
-                {{ product.metafields.judgeme.badge }}
-              </div>
-            <!-- End of Judge.me code -->
-
-            </div>
-
-            <h1 class="uppercase font-bold">product description</h1>
-
-            <p class="font-[500] text-[#6B7280] my-4">
-              {{ product.description | strip_html | truncatewords: 20 }}
-            </p>
-
-            {% comment %} <h2 class="text-lg font-bold uppercase">{{ product.price | money_with_currency }}</h2> {% endcomment %}
-
-            <div class="my-3">
-              {% unless product.has_only_default_variant %}
-                <variant-selector data-url="{{ product.url}}" data-section="{{ section.id }}">
-                  {% for option in product.options_with_values %}
-                    <label class="text-[#6B7280] block mt-4" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
-
-                    <div class="my-4 relative">
-                      <div
-                        class="custom-select flex justify-between items-center w-full pr-3 font-bold outline-none appearance-none cursor-pointer noselect"
-                        role="button"
-                        id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                        data-option-name="{{ option.name | escape }}">
-                        <div class="selected-option" data-selected="{{ option.selected_value }}">
-                          {{ option.selected_value }}
-                        </div>
-                        <div class="dropdown-arrow !text-[#6B7280]">
-                          {% render "icon-down" %}
-                        </div>
+                {% when 'rating' %}
+                  {% if section.settings.show_rating %}
+                    <div class="my-4">
+                      <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+                        {{ product.metafields.judgeme.badge }}
                       </div>
-                      <ul class="custom-options hidden w-full flex items-center gap-2 mt-4 z-10">
-                        {% for value in option.values %}
-                          <li
-                            class="option-item py-2 px-4 text-[#000] font-bold bg-[#fff] hover:bg-gray-200 rounded-full hover:text-black cursor-pointer border border-solid border-black"
-                            data-value="{{ value | escape }}"
-                            {% if option.selected_value == value %}
-                            data-selected="true"
-                            {% endif %}>
-                            {{ value }}
-                          </li>
-                        {% endfor %}
-                      </ul>
                     </div>
-
-                    <script type="application/json">
-                      {{ product.variants | json }}
-                    </script>
-                  {% endfor %}
-                </variant-selector>
-              {% endunless %}
-            </div>
-
-            <div class="my-3 flex items-center gap-4">
-              <div class="quantity-selector">
-                <button type="button" class="quantity-button decrease">
-                  {% render "icon-minus" %}
-                </button>
-                <input
-                  type="number"
-                  name="quantity"
-                  value="1"
-                  min="1"
-                  class="quantity-input">
-                <button type="button" class="quantity-button increase">
-                  {% render "icon-plus" %}
-                </button>
-              </div>
-
-              <div class="flex items-center justify-between">
-                <button
-                  type="button"
-                  @click="addToCart"
-                  name="add"
-                  class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
-                  {% if selected_variant.available == false %}
-                  disabled{% endif %}>
-                  {% if selected_variant.available == false %}
-                    Sold out
-                  {% else %}
-                    Add to cart
-                    <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
                   {% endif %}
-                </button>
-              </div>
-            </div>
+
+                {% when 'description' %}
+                  <h1 class="uppercase font-bold">product description</h1>
+                  <p class="font-[500] text-[#6B7280] my-4">
+                    {{ product.description | strip_html | truncatewords: 20 }}
+                  </p>
+
+                {% when 'price' %}
+                  <h2 class="text-lg font-bold uppercase">{{ product.price | money_with_currency }}</h2>
+
+                {% when 'variant_selector' %}
+                  <div class="my-3">
+                    {% unless product.has_only_default_variant %}
+                      <variant-selector data-url="{{ product.url }}" data-section="{{ section.id }}">
+                        {% for option in product.options_with_values %}
+                          <label class="text-[#6B7280] block mt-4" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+
+                          <div class="my-4 relative">
+                            <div
+                              class="custom-select flex justify-between items-center w-full pr-3 font-bold outline-none appearance-none cursor-pointer noselect"
+                              role="button"
+                              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                              data-option-name="{{ option.name | escape }}">
+                              <div class="selected-option" data-selected="{{ option.selected_value }}">
+                                {{ option.selected_value }}
+                              </div>
+                              <div class="dropdown-arrow !text-[#6B7280]">
+                                {% render "icon-down" %}
+                              </div>
+                            </div>
+                            <ul class="custom-options hidden w-full flex items-center gap-2 mt-4 z-10">
+                              {% for value in option.values %}
+                                <li
+                                  class="option-item py-2 px-4 text-[#000] font-bold bg-[#fff] hover:bg-gray-200 rounded-full hover:text-black cursor-pointer border border-solid border-black"
+                                  data-value="{{ value | escape }}"
+                                  {% if option.selected_value == value %}
+                                  data-selected="true"
+                                  {% endif %}>
+                                  {{ value }}
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+
+                          <script type="application/json">
+                            {{ product.variants | json }}
+                          </script>
+                        {% endfor %}
+                      </variant-selector>
+                    {% endunless %}
+                  </div>
+
+                {% when 'quantity_selector' %}
+                  <div class="quantity-selector">
+                    <button type="button" class="quantity-button decrease">
+                      {% render "icon-minus" %}
+                    </button>
+                    <input
+                      type="number"
+                      name="quantity"
+                      value="1"
+                      min="1"
+                      class="quantity-input">
+                    <button type="button" class="quantity-button increase">
+                      {% render "icon-plus" %}
+                    </button>
+                  </div>
+
+                {% when 'buy_buttons' %}
+                  <div class="flex items-center justify-between">
+                    <button
+                      type="button"
+                      @click="addToCart"
+                      name="add"
+                      class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
+                      {% if selected_variant.available == false %}
+                      disabled{% endif %}>
+                      {% if selected_variant.available == false %}
+                        Sold out
+                      {% else %}
+                        Add to cart
+                        <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
+                      {% endif %}
+                    </button>
+                  </div>
+
+                {% when '@app' %}
+                  {% render block %}
+
+                {% when 'custom_liquid' %}
+                  {{ block.settings.custom_liquid }}
+
+              {% endcase %}
+            {% endfor %}
           </div>
         </div>
-
       {% endform %}
     </div>
   </div>
@@ -426,119 +438,182 @@
   });
 </script>
 
+
 {% schema %}
   {
-    "name": "Snack Save Table",
-    "settings": [
-      {
-        "type": "text",
-        "id": "table_title",
-        "label": "Table Title",
-        "default": "NUTRITIONAL CHART"
-      },
-      {
-        "type": "text",
-        "id": "header_title",
-        "label": "Header Title",
-        "default": "x"
-      },
-      {
-        "type": "text",
-        "id": "benefit_1",
-        "label": "Benefit 1",
-        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-      },
-      {
-        "type": "text",
-        "id": "benefit_2",
-        "label": "Benefit 2",
-        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-      }, {
-        "type": "text",
-        "id": "benefit_3",
-        "label": "Benefit 3",
-        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-      }, {
-        "type": "text",
-        "id": "benefit_4",
-        "label": "Benefit 4",
-        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-      }
-    ],
-    "blocks": [
-      {
-        "type": "column",
-        "name": "Column",
-        "settings": [
-          {
-            "type": "text",
-            "id": "column_title",
-            "label": "Column Title",
-            "default": "Snack"
-          }, {
-            "type": "image_picker",
-            "id": "column_image",
-            "label": "Column Image"
-          }
-        ]
-      }, {
-        "type": "row",
-        "name": "Row",
-        "settings": [
-          {
-            "type": "text",
-            "id": "row_title",
-            "label": "Row Title",
-            "default": "Stack 1"
-          }
-        ]
-      }, {
-        "type": "cell",
-        "name": "Cell",
-        "settings": [
-          {
-            "type": "number",
-            "id": "row_index",
-            "label": "Row Index",
-            "default": 0,
-            "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
-          }, {
-            "type": "text",
-            "id": "button_text",
-            "label": "Button Text",
-            "default": "Save"
-          }, {
-            "type": "color",
-            "id": "button_color",
-            "label": "Button Color",
-            "default": "#000000"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Snack Save Table",
-        "blocks": [
-          {
-            "type": "column"
-          },
-          {
-            "type": "column"
-          },
-          {
-            "type": "row"
-          },
-          {
-            "type": "cell"
-          }, {
-            "type": "cell"
-          }
-        ]
-      }
-    ]
-  }
+  "name": "Product",
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Product Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Product Price",
+      "limit": 1
+    },
+    {
+      "type": "rating",
+      "name": "Product Rating",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "variant_selector",
+      "name": "Variant Selector",
+      "limit": 1
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity Selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy Buttons",
+      "limit": 1
+    },
+
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    },
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "column_title",
+          "label": "Column Title",
+          "default": "Snack"
+        },
+        {
+          "type": "image_picker",
+          "id": "column_image",
+          "label": "Column Image"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "row_title",
+          "label": "Row Title",
+          "default": "Stack 1"
+        }
+      ]
+    },
+    {
+      "type": "cell",
+      "name": "Cell",
+      "settings": [
+        {
+          "type": "number",
+          "id": "row_index",
+          "label": "Row Index",
+          "default": 0,
+          "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Save"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button Color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show product rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "table_title",
+      "label": "Table Title",
+      "default": "NUTRITIONAL CHART"
+    },
+    {
+      "type": "text",
+      "id": "header_title",
+      "label": "Header Title",
+      "default": "x"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4",
+      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Snack Save Table",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "cell"
+        },
+        {
+          "type": "cell"
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}
+
 
 {% comment %} Variant selector script {% endcomment %}
 <script>

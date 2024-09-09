@@ -4,6 +4,27 @@
     "product": {
       "type": "template-product",
       "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "rating": {
+          "type": "rating"
+        },
+        "variant_selector": {
+          "type": "variant_selector"
+        },
+        "quantity_selector": {
+          "type": "quantity_selector"
+        },
+        "buy_buttons": {
+          "type": "buy_buttons"
+        },
+        "description": {
+          "type": "description"
+        },
         "column": {
           "type": "column",
           "settings": {
@@ -114,6 +135,13 @@
         }
       },
       "block_order": [
+        "title",
+        "price",
+        "rating",
+        "variant_selector",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
         "column",
         "column_bhbkck",
         "column_6R4kd7",
@@ -131,6 +159,7 @@
         "cell_DL3MhJ"
       ],
       "settings": {
+        "show_rating": true,
         "table_title": "NUTRITIONAL CHART",
         "header_title": "x"
       }

@@ -44,7 +44,7 @@
     </div>
 
     <div class="flex justify-between items-center gap-4 [&>a>svg]:h-[40px]">
-      <a href="#" class="hidden md:block">{% render "search" %}</a>
+      <a href="{{ routes.search_url }}" class="hidden md:block">{% render "search" %}</a>
       <a href="#" x-on:click="$store.globalState.toggleCartModal()">{% render "cart" %}</a>
     </div>
 

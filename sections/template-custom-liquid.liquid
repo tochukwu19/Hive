@@ -1,0 +1,69 @@
+{% schema %}
+  {
+    "name": "Custom Liquid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Custom Content"
+      }, {
+        "type": "select",
+        "id": "container",
+        "label": "Container type",
+        "options": [
+          {
+            "value": "container",
+            "label": "Container"
+          }, {
+            "value": "container-fluid",
+            "label": "Full width"
+          }
+        ],
+        "default": "container"
+      }, {
+        "type": "liquid",
+        "id": "custom_liquid",
+        "label": "Custom liquid",
+        "info": "Add app snippets or liquid code"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Liquid"
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="{{ section.settings.container }}">
+  {% if section.settings.title != blank %}
+    <h2 class="custom-liquid-title">{{ section.settings.title }}</h2>
+  {% endif %}
+
+  <div class="custom-liquid-content">
+    {{ section.settings.custom_liquid }}
+  </div>
+</div>
+
+<style>
+  .custom-liquid-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .custom-liquid-content {
+    margin-bottom: 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .container-fluid {
+    width: 100%;
+    padding: 0 15px;
+  }
+</style>

@@ -14,6 +14,11 @@
         "type": "template-header",
         "settings": {
         }
+      },
+      "template-footer": {
+        "type": "template-footer",
+        "settings": {
+        }
       }
     },
     "content_for_index": [
@@ -37,6 +42,12 @@
         "disabled": true,
         "settings": {
           "position": "right"
+        }
+      },
+      "15118112041007677360": {
+        "type": "shopify:\/\/apps\/sosharely-share-for-discount\/blocks\/ditoro\/c03298e4-5c1c-48db-85e7-64d38aca3d0a",
+        "disabled": false,
+        "settings": {
         }
       }
     }

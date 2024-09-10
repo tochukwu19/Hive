@@ -172,7 +172,7 @@
             {% for block in section.blocks %}
               {% case block.type %}
                 {% when 'title' %}
-                  <h1 class="w-fit helvetica text-lg font-bold uppercase px-8 py-2 rounded-full bg-[#F79219] text-[#fff]">{{ product.title }}</h1>
+                  <h1 class="w-fit my-8 helvetica text-lg font-bold uppercase px-8 py-2 rounded-full bg-[#F79219] text-[#fff]">{{ product.title }}</h1>
 
                 {% when 'rating' %}
                   {% if section.settings.show_rating %}
@@ -184,7 +184,7 @@
                   {% endif %}
 
                 {% when 'description' %}
-                  <h1 class="uppercase font-bold">product description</h1>
+                  <h1 class="uppercase font-bold mt-4">product description</h1>
                   <p class="font-[500] text-[#6B7280] my-4">
                     {{ product.description | strip_html | truncatewords: 20 }}
                   </p>
@@ -234,40 +234,42 @@
                     {% endunless %}
                   </div>
 
-                {% when 'quantity_selector' %}
-                  <div class="quantity-selector">
-                    <button type="button" class="quantity-button decrease">
-                      {% render "icon-minus" %}
-                    </button>
-                    <input
-                      type="number"
-                      name="quantity"
-                      value="1"
-                      min="1"
-                      class="quantity-input">
-                    <button type="button" class="quantity-button increase">
-                      {% render "icon-plus" %}
-                    </button>
+                  <div class="flex justify-between items-center gap-4">
+                    {% when 'quantity_selector' %}
+                      <div class="quantity-selector">
+                        <button type="button" class="quantity-button decrease">
+                          {% render "icon-minus" %}
+                        </button>
+                        <input
+                          type="number"
+                          name="quantity"
+                          value="1"
+                          min="1"
+                          class="quantity-input">
+                        <button type="button" class="quantity-button increase">
+                          {% render "icon-plus" %}
+                        </button>
+                      </div>
+    
+                    {% when 'buy_buttons' %}
+                      <div class="flex items-center justify-between">
+                        <button
+                          type="button"
+                          @click="addToCart"
+                          name="add"
+                          class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
+                          {% if selected_variant.available == false %}
+                          disabled{% endif %}>
+                          {% if selected_variant.available == false %}
+                            Sold out
+                          {% else %}
+                            Add to cart
+                            <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
+                          {% endif %}
+                        </button>
+                      </div>
+    
                   </div>
-
-                {% when 'buy_buttons' %}
-                  <div class="flex items-center justify-between">
-                    <button
-                      type="button"
-                      @click="addToCart"
-                      name="add"
-                      class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
-                      {% if selected_variant.available == false %}
-                      disabled{% endif %}>
-                      {% if selected_variant.available == false %}
-                        Sold out
-                      {% else %}
-                        Add to cart
-                        <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
-                      {% endif %}
-                    </button>
-                  </div>
-
                 {% when '@app' %}
                   {% render block %}
 

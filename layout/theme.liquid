@@ -47,16 +47,9 @@
   </head>
   <body class="" x-data x-bind="$store.globalState">
     <main role="main">
-      {% section_group 'header' %}
-        {% section "template-header" %}
-      {% endsection_group %}
-
-
+      {% section "template-header" %}
       {{ content_for_layout }}
-
-      {% section_group 'footer' %}
-        {% section "template-footer" %}
-      {% endsection_group %}
+      {% section "template-footer" %}
     </main>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

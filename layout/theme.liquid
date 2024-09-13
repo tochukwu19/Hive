@@ -79,6 +79,10 @@
           total: '{{ cart.total_price | money_without_currency }}',
           itemCount: {{ cart.item_count }},
           isLoaded: true,
+
+          getFormattedLinePrice(item) {
+            return (item.line_price / 100).toFixed(2);
+          },
           
           async refreshCart() {
             try {

@@ -68,7 +68,7 @@
                           {% render 'plus' %}
                         </button>
                       </div>
-                      <p class="font-[600]" x-text="item.line_price"></p>
+                      <p class="font-[600]" x-text="$store.cartState.getFormattedLinePrice(item)"></p>
                     </div>
                   </div>
                 </div>

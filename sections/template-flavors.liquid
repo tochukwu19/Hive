@@ -41,7 +41,7 @@
       alt="Packet" />
 
     <img
-      class="absolute right-[-150px] md:right-[0px] top-[200px]"
+      class="absolute hidden md:block right-[-150px] md:right-[0px] top-[200px]"
       src="{{ 'Cloud_1.png' | file_img_url: "master" }}"
       alt="Cloud" />
     <img
@@ -91,7 +91,7 @@
       {% endfor %}
     </div>
 
-    <a href="#" class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
+    <a href="{{ routes.all_products_collection_url }}" class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center">
       Shop Now
     </a>
   </div>

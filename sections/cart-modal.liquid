@@ -1,0 +1,114 @@
+{% schema %}
+  {"name": "Cart Modal"}
+{% endschema %}
+
+<div id="cart-modal-content">
+
+  <div
+    id="cart-modal"
+    x-show="$store.globalState.showCart"
+    x-cloak
+    x-data
+    x-effect="$watch('$store.cartState.itemCount', () => {})"
+    class="border border-solid border-black h-auto md:h-[90vh] w-full md:w-[40%] bg-[#FFFBEB] rounded-[23px] z-[20] fixed top-0 right-0 md:right-10 py-8">
+    <div class="w-full">
+      <div class="flex justify-between items-center w-[90%] mx-auto">
+        <div class="flex gap-4 items-center">
+          <h2 class="font-[500] text-[20px]">Your Cart</h2>
+        </div>
+        <span x-on:click="$store.globalState.toggleCartModal()" class="cursor-pointer">{% render 'close' %}</span>
+      </div>
+
+      <div x-show="$store.cartState.itemCount > 0">
+        <div class="w-full flex flex-col my-10 mx-auto">
+          <form
+            action="{{ routes.cart_url }}"
+            method="POST"
+            novalidate>
+            <div id="cart-modal-items" class="scroll h-[300px] w-[90%] mx-auto">
+              <template x-for="item in $store.cartState.items" :key="item.key">
+                <div class="flex justify-between items-center gap-4 my-4">
+                  <a :href="item.url" class="w-[100px]">
+                    <img
+                      :src="item.image"
+                      :alt="item.title"
+                      class="w-20 h-20 rounded-[4px] border border-black border-solid object-cover border">
+                  </a>
+
+                  <div class="flex flex-col justify-center w-full">
+                    <div class="flex flex-row justify-between items-center mb-2">
+                      <div class="flex flex-col gap-1">
+                        <a
+                          :href="item.url"
+                          class="font-[600]"
+                          x-text="item.product_title"></a>
+                        <span class="text-sm" x-text="item.variant_title"></span>
+                      </div>
+
+                      <button @click.prevent="$store.cartState.removeItem(item.key)" class="text-sm font-medium text-red-500 my-1">
+                        {% render 'delete' %}
+                      </button>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                      <div class="quantity-selector-2 flex items-center bg-[#F79219] text-white rounded-full">
+                        <button type="button" class="decrement w-8 h-8 text-center flex items-center justify-center">
+                          {% render 'minus' %}
+                        </button>
+
+                        <input
+                          type="number"
+                          :name="`updates[${item.key}]`"
+                          :value="item.quantity"
+                          min="1"
+                          class="w-[20px] text-center outline-none border-none quantity-input-2 bg-[#F79219] text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          readonly>
+
+                        <button type="button" class="increment w-8 h-8 text-center flex items-center justify-center">
+                          {% render 'plus' %}
+                        </button>
+                      </div>
+                      <p class="font-[600]" x-text="item.line_price"></p>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <div class="flex px-8 md:px-0 flex-col md:flex-row items-center justify-between border-t border-black border-solid pt-[10px]">
+              <div class="w-full my-4 md:w-80 mx-auto">
+                <div class="font-[600] flex justify-between items-center text-base">
+                  <h3 class="subtotal-text">Subtotal (<span x-text="$store.cartState.itemCount"></span>
+                    item<span x-show="$store.cartState.itemCount !== 1">s</span>)</h3>
+                  <h3 class="subtotal-price">$<span x-text="$store.cartState.total"></span>
+                  </h3>
+                </div>
+
+                <div class="my-2">
+                  <button
+                    type="submit"
+                    name="update"
+                    class="box-s w-full rounded-[30px] bg-[#fff] text-black border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] block">Update</button>
+                </div>
+                <div class="my-2">
+                  <button
+                    type="submit"
+                    name="checkout"
+                    class="box-s w-full rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] block">Checkout</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div x-show="$store.cartState.itemCount === 0" class="max-w-6xl h-60 my-4 mx-auto flex items-center justify-center">
+        <div class="text-center">
+          <h1 class="text-xl uppercase helvetica my-4">Your cart is empty</h1>
+          <div class="my-4 py-4">
+            <a href="{{ routes.all_products_collection_url }}" class="border border-gray-600 text-white bg-[#F79219] px-8 py-3">Continue shopping</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

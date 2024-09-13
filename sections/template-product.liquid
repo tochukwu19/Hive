@@ -235,40 +235,40 @@
                   </div>
 
                   <div class="flex justify-between items-center gap-4">
-                    {% when 'quantity_selector' %}
-                      <div class="quantity-selector">
-                        <button type="button" class="quantity-button decrease">
-                          {% render "icon-minus" %}
-                        </button>
-                        <input
-                          type="number"
-                          name="quantity"
-                          value="1"
-                          min="1"
-                          class="quantity-input">
-                        <button type="button" class="quantity-button increase">
-                          {% render "icon-plus" %}
-                        </button>
-                      </div>
-    
-                    {% when 'buy_buttons' %}
-                      <div class="flex items-center justify-between">
-                        <button
-                          type="button"
-                          @click="addToCart"
-                          name="add"
-                          class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
-                          {% if selected_variant.available == false %}
-                          disabled{% endif %}>
-                          {% if selected_variant.available == false %}
-                            Sold out
-                          {% else %}
-                            Add to cart
-                            <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
-                          {% endif %}
-                        </button>
-                      </div>
-    
+                  {% when 'quantity_selector' %}
+                    <div class="quantity-selector">
+                      <button type="button" class="quantity-button decrease">
+                        {% render "icon-minus" %}
+                      </button>
+                      <input
+                        type="number"
+                        name="quantity"
+                        value="1"
+                        min="1"
+                        class="quantity-input">
+                      <button type="button" class="quantity-button increase">
+                        {% render "icon-plus" %}
+                      </button>
+                    </div>
+
+                  {% when 'buy_buttons' %}
+                    <div class="flex items-center justify-between">
+                      <button
+                        type="button"
+                        @click="addToCart"
+                        name="add"
+                        class="block shop_now_new rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px] flex items-center font-[500]"
+                        {% if selected_variant.available == false %}
+                        disabled{% endif %}>
+                        {% if selected_variant.available == false %}
+                          Sold out
+                        {% else %}
+                          Add to cart
+                          <span id="price-display" class="ml-1">{{ selected_variant.price | money }}</span>
+                        {% endif %}
+                      </button>
+                    </div>
+
                   </div>
                 {% when '@app' %}
                   {% render block %}
@@ -443,177 +443,162 @@
 
 {% schema %}
   {
-  "name": "Product",
-  "blocks": [
-    {
-      "type": "title",
-      "name": "Product Title",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Product Price",
-      "limit": 1
-    },
-    {
-      "type": "rating",
-      "name": "Product Rating",
-      "limit": 1
-    },
-    {
-      "type": "description",
-      "name": "Description",
-      "limit": 1
-    },
-    {
-      "type": "variant_selector",
-      "name": "Variant Selector",
-      "limit": 1
-    },
-    {
-      "type": "quantity_selector",
-      "name": "Quantity Selector",
-      "limit": 1
-    },
-    {
-      "type": "buy_buttons",
-      "name": "Buy Buttons",
-      "limit": 1
-    },
-
-    {
-      "type": "custom_liquid",
-      "name": "Custom Liquid",
-      "settings": [
-        {
-          "type": "liquid",
-          "id": "custom_liquid",
-          "label": "Custom Liquid"
-        }
-      ]
-    },
-    {
-      "type": "column",
-      "name": "Column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "column_title",
-          "label": "Column Title",
-          "default": "Snack"
-        },
-        {
-          "type": "image_picker",
-          "id": "column_image",
-          "label": "Column Image"
-        }
-      ]
-    },
-    {
-      "type": "row",
-      "name": "Row",
-      "settings": [
-        {
-          "type": "text",
-          "id": "row_title",
-          "label": "Row Title",
-          "default": "Stack 1"
-        }
-      ]
-    },
-    {
-      "type": "cell",
-      "name": "Cell",
-      "settings": [
-        {
-          "type": "number",
-          "id": "row_index",
-          "label": "Row Index",
-          "default": 0,
-          "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
-        },
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Button Text",
-          "default": "Save"
-        },
-        {
-          "type": "color",
-          "id": "button_color",
-          "label": "Button Color",
-          "default": "#000000"
-        }
-      ]
-    }
-  ],
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "label": "Show product rating",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "table_title",
-      "label": "Table Title",
-      "default": "NUTRITIONAL CHART"
-    },
-    {
-      "type": "text",
-      "id": "header_title",
-      "label": "Header Title",
-      "default": "x"
-    },
-    {
-      "type": "text",
-      "id": "benefit_1",
-      "label": "Benefit 1",
-      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-    },
-    {
-      "type": "text",
-      "id": "benefit_2",
-      "label": "Benefit 2",
-      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-    },
-    {
-      "type": "text",
-      "id": "benefit_3",
-      "label": "Benefit 3",
-      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-    },
-    {
-      "type": "text",
-      "id": "benefit_4",
-      "label": "Benefit 4",
-      "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
-    }
-  ],
-  "presets": [
-    {
-      "name": "Snack Save Table",
-      "blocks": [
-        {
-          "type": "column"
-        },
-        {
-          "type": "column"
-        },
-        {
-          "type": "row"
-        },
-        {
-          "type": "cell"
-        },
-        {
-          "type": "cell"
-        }
-      ]
-    }
-  ]
-}
+    "name": "Product",
+    "blocks": [
+      {
+        "type": "title",
+        "name": "Product Title",
+        "limit": 1
+      },
+      {
+        "type": "price",
+        "name": "Product Price",
+        "limit": 1
+      },
+      {
+        "type": "rating",
+        "name": "Product Rating",
+        "limit": 1
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1
+      }, {
+        "type": "variant_selector",
+        "name": "Variant Selector",
+        "limit": 1
+      }, {
+        "type": "quantity_selector",
+        "name": "Quantity Selector",
+        "limit": 1
+      }, {
+        "type": "buy_buttons",
+        "name": "Buy Buttons",
+        "limit": 1
+      }, {
+        "type": "custom_liquid",
+        "name": "Custom Liquid",
+        "settings": [
+          {
+            "type": "liquid",
+            "id": "custom_liquid",
+            "label": "Custom Liquid"
+          }
+        ]
+      }, {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "text",
+            "id": "column_title",
+            "label": "Column Title",
+            "default": "Snack"
+          }, {
+            "type": "image_picker",
+            "id": "column_image",
+            "label": "Column Image"
+          }
+        ]
+      }, {
+        "type": "row",
+        "name": "Row",
+        "settings": [
+          {
+            "type": "text",
+            "id": "row_title",
+            "label": "Row Title",
+            "default": "Stack 1"
+          }
+        ]
+      }, {
+        "type": "cell",
+        "name": "Cell",
+        "settings": [
+          {
+            "type": "number",
+            "id": "row_index",
+            "label": "Row Index",
+            "default": 0,
+            "info": "Enter the index of the row this cell belongs to (0 for first row, 1 for second, etc.)"
+          }, {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Save"
+          }, {
+            "type": "color",
+            "id": "button_color",
+            "label": "Button Color",
+            "default": "#000000"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_rating",
+        "label": "Show product rating",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "table_title",
+        "label": "Table Title",
+        "default": "NUTRITIONAL CHART"
+      },
+      {
+        "type": "text",
+        "id": "header_title",
+        "label": "Header Title",
+        "default": "x"
+      },
+      {
+        "type": "text",
+        "id": "benefit_1",
+        "label": "Benefit 1",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      }, {
+        "type": "text",
+        "id": "benefit_2",
+        "label": "Benefit 2",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      }, {
+        "type": "text",
+        "id": "benefit_3",
+        "label": "Benefit 3",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      }, {
+        "type": "text",
+        "id": "benefit_4",
+        "label": "Benefit 4",
+        "default": "Korem ipsum dolor sit amet, consectetur adipiscing elit."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Snack Save Table",
+        "blocks": [
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "row"
+          },
+          {
+            "type": "cell"
+          }, {
+            "type": "cell"
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}
 
 
@@ -806,33 +791,47 @@
 </script>
 
 <script>
-  document.addEventListener('alpine:init', () => {
+ document.addEventListener('alpine:init', () => {
+  Alpine.store('cartState', {
+    items: [],
+    total: '0.00',
+    itemCount: 0,
+
+    updateCart(newCartData) {
+      this.items = newCartData.items;
+      this.total = newCartData.total_price;
+      this.itemCount = newCartData.item_count;
+    }
+  });
+
   Alpine.data('productActions', () => ({
     addToCart() {
       const form = document.getElementById('product-form');
       const formData = new FormData(form);
-  
+
       fetch('/cart/add.js', {
         method: 'POST',
         body: formData
       })
       .then(response => response.json())
       .then(data => {
-        // Reload the page and wait for it to complete
-        return new Promise((resolve) => {
-          window.addEventListener('load', resolve);
-          window.location.reload(true);
-        });
+        // After successfully adding to cart, fetch the updated cart data
+        return fetch('/cart.js');
       })
-      .then(() => {
-        // Open the cart modal after the page has reloaded
-        const globalState = Alpine.store('globalState');
-        globalState.toggleCartModal();
+      .then(response => response.json())
+      .then(cartData => {
+        // Update the cart state
+        Alpine.store('cartState').updateCart(cartData);
+
+        Alpine.store('cartState').refreshCart()
+        
+        // Open the cart modal
+        Alpine.store('globalState').toggleCartModal();
       })
       .catch(error => {
         console.error('Error:', error);
       });
     }
   }));
-  });
+});
 </script>

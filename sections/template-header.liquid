@@ -18,8 +18,8 @@
     background-color: #F79219;
   }
 
-  .box-s{
-    box-shadow: 2px 2px 0px 0px #000000;
+  .box-s {
+    box-shadow: 2px 2px 0 0 #000000;
   }
 </style>
 
@@ -45,117 +45,13 @@
 
     <div class="flex justify-between items-center gap-4 [&>a>svg]:h-[40px]">
       <a href="{{ routes.search_url }}" class="hidden md:block">{% render "search" %}</a>
-      <a href="#" x-on:click="$store.globalState.toggleCartModal()">{% render "cart" %}</a>
-    </div>
-
-    <div
-      x-show="$store.globalState.showCart"
-      x-cloak
-      class="border border-solid border-black h-[90vh] w-full md:w-[40%] bg-[#FFFBEB] rounded-[23px] z-[10] fixed top-0 right-0 md:right-10 py-8">
-      <div class="w-full">
-        <div class="flex justify-between items-center w-[90%] mx-auto">
-          <div class="flex gap-4 items-center">
-            <span>{% render "cart" %}</span>
-            <h2 class="font-[500] text-[20px]">Your Cart</h2>
-          </div>
-          <span x-on:click="$store.globalState.toggleCartModal()" class="cursor-pointer">{% render 'close' %}</span>
-        </div>
-
-        <div>
-          {% if cart.item_count > 0 %}
-            <div class="">
-
-              <div class="w-full flex flex-col my-10 mx-auto">
-                <form
-                  action="{{ routes.cart_url }}"
-                  method="POST"
-                  novalidate>
-                  <div id="cart-modal" class="scroll h-[300px] w-[90%] mx-auto">
-                    {% for item in cart.items %}
-                      <div class="flex justify-between items-center gap-4 my-4">
-                        <a href="{{ item.url }}" class="w-[100px]">
-                          {% if item.image %}
-                            <img
-                              src="{{ item.image | img_url: 'small' }}"
-                              alt="{{ item.title | escape }}"
-                              class="w-20 h-20 rounded-[4px] border border-black border-solid object-cover border">
-                          {% else %}
-                            {{ 'product-1' | placeholder_svg_tag: 'rounded-[4px] w-20 h-20 object-cover border' }}
-                          {% endif %}
-                        </a>
-
-                        <div class="flex flex-col justify-center w-full">
-                          <div class="flex flex-row justify-between items-center mb-2">
-                            <div class="flex flex-col gap-1">
-                              <a href="{{ item.url }}" class="font-[600]">{{ item.product.title | truncatewords: 5 }}</a>
-                              <span class="text-sm">{{ item.variant.title }}</span>
-                            </div>
-
-                            <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="text-sm font-medium text-red-500 my-1">{% render 'delete' %}</a>
-                          </div>
-
-                          <div class="flex justify-between items-center">
-                            <div class="quantity-selector-2 flex items-center bg-[#F79219] text-white rounded-full">
-                              <button type="button" class="decrement w-8 h-8 text-center flex items-center justify-center">
-                                {% render 'minus' %}
-                              </button>
-
-                              <input
-                                type="number"
-                                name="updates[]"
-                                value="{{ item.quantity }}"
-                                min="1"
-                                id="updates_{{ forloop.index }}"
-                                class="w-[20px] text-center outline-none border-none quantity-input-2 bg-[#F79219] text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                readonly>
-
-                              <button type="button" class="increment w-8 h-8 text-center flex items-center justify-center">
-                                {% render 'plus' %}
-                              </button>
-                            </div>
-                            <p class="font-[600]">{{ item.line_price | money }}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <hr class="border-t border-solid border-black w-full my-2" />
-                    {% endfor %}
-                  </div>
-
-                  <div class="flex flex-col md:flex-row items-center justify-between border-t border-black border-solid pt-[10px]">
-                    <div class="w-full my-4 md:w-80 mx-auto">
-                      <div class="font-[600] flex justify-between items-center text-base">
-                        <h3 class="subtotal-text">Subtotal ({{ cart.item_count }}item)</h3>
-                        <h3 class="subtotal-price">{{ cart.total_price | money }}</h3>
-                      </div>
-
-                      <div class="my-2">
-                        <button
-                          type="submit"
-                          name="update"
-                          class="box-s w-full rounded-[30px] bg-[#fff] text-black border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px]  block">Update</button>
-                      </div>
-                      <div class="my-2">
-                        <button
-                          type="submit"
-                          name="checkout"
-                          class="box-s w-full rounded-[30px] bg-[#F79219] text-white border border-solid border-black px-8 md:px-16 h-[40px] md:h-[52px] mx-auto text-sm md:text-[16px]  block">Checkout</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          {% else %}
-            <div class="max-w-6xl h-60 my-4 mx-auto flex items-center justify-center">
-              <div class="text-center">
-                <h1 class="text-xl uppercase helvetica my-4">Your cart is empty</h1>
-                <div class="my-4 py-4">
-                  <a href="{{ routes.all_products_collection_url }}" class="border border-gray-600 text-white bg-[#F79219] px-8 py-3">Continue shopping</a>
-                </div>
-              </div>
-            </div>
-          {% endif %}
+      <div class="relative cursor-pointer" x-on:click="$store.globalState.toggleCartModal()">
+        <a href="#">{% render "cart" %}</a>
+        <div
+          x-data
+          x-show="$store.cartState.itemCount > 0"
+          class="absolute h-[20px] w-[20px] top-[7px] right-[7px] bg-white rounded-full flex items-center justify-center text-[10px] font-bold p-2">
+          <span x-text="$store.cartState.itemCount">{{ cart.item_count }}</span>
         </div>
       </div>
     </div>

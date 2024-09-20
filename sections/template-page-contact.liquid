@@ -6,6 +6,10 @@
       width: 80% !important;
     }
   }
+
+  .clipboard{
+    box-shadow: 4px 4px 0px 0px #000000
+  }
 </style>
 
 <div class="w-full">
@@ -14,7 +18,7 @@
     <h1 class="text-3xl md:text-5xl font-[900]">{{ section.settings.title }}</h1>
   </div>
 
-  <div class="relative bg-[{{ section.settings.background_color }}] px-6 py-8 rounded-[19px] w-[{{ section.settings.content_width }}%] md:w-[50%] mt-32 mb-8 mx-auto border border-black flex items-center flex-col setting-color"
+  <div class="clipboard relative bg-[{{ section.settings.background_color }}] px-6 py-8 rounded-[19px] w-[40%] md:w-[50%] mt-32 mb-8 mx-auto border border-black flex items-center flex-col setting-color"
     style="width: {{ section.settings.content_width }}%"
   >
     <div class="absolute top-[-57px] w-fit">
@@ -122,7 +126,7 @@
         "step": 5,
         "unit": "%",
         "label": "Content Width",
-        "default": 60
+        "default": 40
       }, {
         "type": "text",
         "id": "success_message",
